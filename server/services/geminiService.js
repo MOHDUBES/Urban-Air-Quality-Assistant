@@ -1,12 +1,66 @@
 import { GoogleGenAI } from '@google/genai'
 import { getBaselineRecommendations, getAqiCategory } from './fallbackEngine.js'
 
+// Load .env if present
+try {
+  process.loadEnvFile()
+} catch {
+  // Gracefully continue if .env does not exist
+}
+
 // ---------------------------------------------------------------------------
-// Client setup
+// Model configuration & execution
 // ---------------------------------------------------------------------------
 
-const client = new GoogleGenAI({ store: false }) // no storage of user data
-const MODEL = 'gemini-4-hydrogen'
+const CANDIDATE_MODELS = [
+  process.env.GEMINI_MODEL,
+  'gemini-2.0-flash',
+  'gemini-3.1-flash-lite',
+  'gemini-3.8-flash',
+].filter(Boolean)
+
+function getGenAiClient() {
+  const apiKey = process.env.GEMINI_API_KEY
+  return new GoogleGenAI({ apiKey })
+}
+
+/**
+ * Executes a generateContent call against candidate Gemini models.
+ * Automatically tries next viable model if one is unavailable (404/503).
+ */
+async function callGemini(params) {
+  const client = getGenAiClient()
+  const models = [...new Set(CANDIDATE_MODELS)]
+  let lastError = null
+
+  for (const model of models) {
+    try {
+      const response = await client.models.generateContent({
+        ...params,
+        model,
+      })
+      const text = response.text ?? response.candidates?.[0]?.content?.parts?.[0]?.text ?? ''
+      if (text) {
+        return text
+      }
+    } catch (err) {
+      lastError = err
+      const isUnavailable =
+        err?.message?.includes('404') ||
+        err?.message?.includes('503') ||
+        err?.status === 404 ||
+        err?.status === 503
+
+      if (isUnavailable && model !== models[models.length - 1]) {
+        console.warn(`[gemini] Model ${model} unavailable (${err.message?.slice(0, 80)}), trying next candidate...`)
+        continue
+      }
+      throw err
+    }
+  }
+
+  throw lastError || new Error('All candidate Gemini models failed')
+}
 
 // ---------------------------------------------------------------------------
 // Error class
@@ -19,12 +73,6 @@ export class GeminiError extends Error {
     this.cause = cause
   }
 }
-
-// ---------------------------------------------------------------------------
-// In-memory session store for chat continuity
-// key: sessionId (derived from profile hash), value: previous_interaction_id
-// ---------------------------------------------------------------------------
-const _chatSessionStore = new Map()
 
 // ---------------------------------------------------------------------------
 // HTML stripping
@@ -166,8 +214,7 @@ export async function generateActionPlan(profile, aqiData, language = 'en') {
 
   let outputText
   try {
-    const response = await client.models.generateContent({
-      model: MODEL,
+    outputText = await callGemini({
       contents: [{ role: 'user', parts: [{ text: userMessage }] }],
       config: {
         systemInstruction: systemPrompt,
@@ -175,7 +222,6 @@ export async function generateActionPlan(profile, aqiData, language = 'en') {
         temperature: 0.3,
       },
     })
-    outputText = response.text ?? response.candidates?.[0]?.content?.parts?.[0]?.text ?? ''
   } catch (err) {
     throw new GeminiError('Gemini API call failed for action plan', err)
   }
@@ -216,8 +262,7 @@ export async function generateWhatIf(profile, aqiData, choices, language = 'en')
 
   let outputText
   try {
-    const response = await client.models.generateContent({
-      model: MODEL,
+    outputText = await callGemini({
       contents: [{ role: 'user', parts: [{ text: userMessage }] }],
       config: {
         systemInstruction: systemPrompt,
@@ -225,7 +270,6 @@ export async function generateWhatIf(profile, aqiData, choices, language = 'en')
         temperature: 0.3,
       },
     })
-    outputText = response.text ?? response.candidates?.[0]?.content?.parts?.[0]?.text ?? ''
   } catch (err) {
     throw new GeminiError('Gemini API call failed for what-if', err)
   }
@@ -254,7 +298,6 @@ export async function generateWhatIf(profile, aqiData, choices, language = 'en')
 export async function generateChatResponse(message, profile, aqiData, history = [], language = 'en') {
   const systemPrompt = buildChatSystemPrompt(profile, aqiData, language)
 
-  // Build conversation contents from history
   const contents = [
     ...history.map((h) => ({
       role: h.role === 'assistant' ? 'model' : 'user',
@@ -265,8 +308,7 @@ export async function generateChatResponse(message, profile, aqiData, history = 
 
   let outputText
   try {
-    const response = await client.models.generateContent({
-      model: MODEL,
+    outputText = await callGemini({
       contents,
       config: {
         systemInstruction: systemPrompt,
@@ -274,11 +316,9 @@ export async function generateChatResponse(message, profile, aqiData, history = 
         temperature: 0.5,
       },
     })
-    outputText = response.text ?? response.candidates?.[0]?.content?.parts?.[0]?.text ?? ''
   } catch (err) {
     throw new GeminiError('Gemini API call failed for chat', err)
   }
 
-  // Strip any HTML from response
   return stripHtml(outputText).trim()
 }

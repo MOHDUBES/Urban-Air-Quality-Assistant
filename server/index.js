@@ -1,6 +1,12 @@
 // server/index.js
 // Express entry point for the Urban Air Quality Assistant API server.
 
+try {
+  process.loadEnvFile()
+} catch {
+  // Gracefully continue if .env does not exist
+}
+
 import express from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
@@ -49,26 +55,26 @@ app.use(cors({
 app.use(express.json({ limit: '20kb' }))
 
 // ── Rate limiter ────────────────────────────────────────────────────────────
-app.use('/api/', generalLimiter)
-app.use('/api/plan', strictLimiter)
-app.use('/api/chat', strictLimiter)
+app.use(['/api/', '/'], generalLimiter)
+app.use(['/api/plan', '/plan'], strictLimiter)
+app.use(['/api/chat', '/chat'], strictLimiter)
 
 // ── Routes ──────────────────────────────────────────────────────────────────
-app.use('/api/aqi', aqiRouter)
-app.use('/api/plan', planRouter)
-app.use('/api/chat', chatRouter)
-app.use('/api/whatif', whatifRouter)
+app.use(['/api/aqi', '/aqi'], aqiRouter)
+app.use(['/api/plan', '/plan'], planRouter)
+app.use(['/api/chat', '/chat'], chatRouter)
+app.use(['/api/whatif', '/whatif'], whatifRouter)
 
 // ── Health check ────────────────────────────────────────────────────────────
-app.get('/api/health', (_req, res) => {
+app.get(['/api/health', '/health'], (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() })
 })
 
 // ── Error handler (must be last) ─────────────────────────────────────────
 app.use(errorHandler)
 
-// ── Start (only if not running under test) ────────────────────────────────────
-if (process.env.NODE_ENV !== 'test') {
+// ── Start (only if not running under test or serverless environment) ───────
+if (process.env.NODE_ENV !== 'test' && !process.env.VERCEL) {
   app.listen(PORT, () => {
     console.log(`[server] listening on http://localhost:${PORT}`)
   })

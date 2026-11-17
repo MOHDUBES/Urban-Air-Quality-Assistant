@@ -57,7 +57,7 @@ export default function ImpactExplainer({ impactData }) {
       </div>
 
       <p className="mt-3 text-[11px] text-gray-500 dark:text-gray-400 italic">
-        * Note: All numerical reductions are scientific estimates marked with (est.) based on published ICMR, EPA, and IIT-Delhi aerosol studies.
+        * Note: All numerical reductions are scientific estimates marked with (est.), approximate, based on public literature (WHO, CPCB, EPA, UC Davis).
       </p>
     </div>
   )

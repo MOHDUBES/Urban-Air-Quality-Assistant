@@ -94,7 +94,7 @@ export default function MaskGuide() {
             </table>
           </div>
           <p className="text-[11px] text-gray-500 dark:text-gray-400 italic">
-            Source: NIOSH Respirator Filtration Benchmark & Indian Chest Society guidelines (est.)
+            Source: Approximate, based on public literature (WHO, CPCB, EPA, UC Davis) (est.)
           </p>
         </div>
       )}

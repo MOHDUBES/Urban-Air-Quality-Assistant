@@ -29,6 +29,9 @@ Code Coverage Focus: High-risk decision paths, schema gates, fallback engine, ac
 | **Unit** | `client/__tests__/aqiUtils.test.js` | 10 | Category detection, bilingual labels (English/Hindi), leading zero formatting (`045`), screen-reader aria strings. |
 | **Component** | `client/__tests__/AqiCard.test.jsx` | 4 | Text-and-color visual indicators (no color-alone indicators), PM2.5/PM10 readings, `aria-live="polite"` region, manual override modal toggle. |
 | **Component** | `client/__tests__/ProfileForm.test.jsx` | 3 | Semantic `<label>` associations, instant demo preset hydration, client-side city validation error rendering. |
+| **Component** | `client/__tests__/WhatIfSimulator.test.jsx` | 3 | Interactive intervention toggles, dynamic reduction percentages with (est.) labels, CO2 emission savings calculation. |
+| **Component** | `client/__tests__/IndoorHacks.test.jsx` | 2 | Ranked DIY / commercial air cleaning hacks, budget tier badge display, graceful null handling on empty sets. |
+| **Unit** | `client/__tests__/sanitize.test.js` | 5 | DOMPurify XSS payload and script tag removal, HTML stripping, non-string null/undefined safety, string truncation. |
 
 ---
 

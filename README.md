@@ -3,11 +3,11 @@
 > **A GenAI-Powered Smog Defense & Community Action Platform**  
 > *Tailored low-emission daily routines, evidence-based indoor hacks, and quantified personal emissions impact for families navigating severe winter smog.*
 
-[![CI Status](https://github.com/mohdu/urban-air-quality-assistant/actions/workflows/ci.yml/badge.svg)](https://github.com/mohdu/urban-air-quality-assistant/actions)
+[![CI Status](https://github.com/MOHDUBES/urban-air-quality-assistant/actions/workflows/ci.yml/badge.svg)](https://github.com/MOHDUBES/urban-air-quality-assistant/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node Version](https://img.shields.io/badge/Node.js-%3E%3D20-green.svg)](https://nodejs.org/)
 [![React Version](https://img.shields.io/badge/React-18-blue.svg)](https://react.dev/)
-[![Gemini](https://img.shields.io/badge/Google%20Gemini-gemini--4--hydrogen-purple.svg)](https://ai.google.dev/)
+[![Gemini](https://img.shields.io/badge/Google%20Gemini-gemini--2.0--flash-purple.svg)](https://ai.google.dev/)
 [![Open-Meteo](https://img.shields.io/badge/Air%20Quality-Open--Meteo%20API-orange.svg)](https://open-meteo.com/)
 
 ---
@@ -57,13 +57,13 @@ flowchart TD
     Router["Route Controllers (/api/aqi, /api/plan, /api/chat, /api/whatif)"]
     Cache["In-Memory Cache (TTL: 10m AQI, 30m Plan)"]
     Fallback["Deterministic Rule-Based Grounding Engine"]
-    GeminiClient["Google GenAI SDK (Interactions API)"]
+    GeminiClient["Google GenAI SDK (gemini-2.0-flash)"]
   end
 
   subgraph External ["External Services (Zero Client Exposure)"]
     OpenMeteoGeo["Open-Meteo Geocoding API (Free)"]
     OpenMeteoAQI["Open-Meteo Air Quality API (Hourly PM2.5/PM10/AQI)"]
-    GeminiAPI["Google Gemini 4 Hydrogen (gemini-4-hydrogen)"]
+    GeminiAPI["Google Gemini 2.0 Flash (gemini-2.0-flash)"]
   end
 
   User --> Form
@@ -91,7 +91,7 @@ flowchart TD
 
 ## 🧠 How GenAI is Used (Prompt Design & Architecture)
 
-The system utilizes **Google Gemini** (`gemini-4-hydrogen`) via the official `@google/genai` (>= 3.2.0) Interactions API.
+The system utilizes **Google Gemini** (`gemini-2.0-flash`) via the official `@google/genai` (>= 3.2.0) SDK.
 
 ### 1. Architectural Guardrails
 * **Zero Client Leakage:** The Gemini API key resides solely in backend environment variables. The browser never receives or transmits API credentials.
@@ -156,12 +156,12 @@ Every impact figure in the platform is clearly marked with `(est.)` and backed b
 
 | Parameter | Baseline Value | Model Assumption & Source |
 |---|---|---|
-| **Delhi Metro vs. Solo Petrol Car** | ~1.7 kg CO2 / 10 km | Petrol car fuel economy: 14 km/L; Metro grid intensity: 0.72 kg CO2/kWh (Delhi Metro Rail Corporation Environmental Report). |
-| **Direct PM2.5 Inhalation Saved** | ~32 mg PM2.5 / 10 km | In-traffic commuter ventilation rate: 15 L/min; Roadside PM2.5 concentration: 250 µg/m³; Car cabin infiltration: 60%. |
-| **N95 Respirator Filtration** | ≥95% particulate capture | NIOSH standard testing at 85 L/min flow rate; Assumes facial seal with <5% edge leakage (Indian Chest Society). |
-| **Bedroom HEPA Air Filtration** | ~85–95% PM2.5 reduction | 150 sq ft room with CADR 150 CFM, 0.5 ACH infiltration, operated for 8 hours overnight (EPA Indoor Environments Division). |
-| **Corsi-Rosenthal DIY Box Fan** | ~60–75% PM2.5 reduction | 4 × MERV-13 filters + 20-inch box fan with shroud; ~200 CFM CADR at 1/5th commercial purifier cost (UC Davis / Dr. Richard Corsi). |
-| **Avoid Morning Exversion Peak** | 30–45% lower PM2.5 exposure | Midday vertical mixing height expands from 100m (7 AM) to 800m+ (1 PM), dispersing trapped surface pollutants (IIT-Delhi Smog Studies). |
+| **Delhi Metro vs. Solo Petrol Car** | ~1.7 kg CO2 / 10 km | Petrol car fuel economy: 14 km/L; Metro grid intensity: 0.72 kg CO2/kWh (approximate, based on public literature (WHO, CPCB, EPA, UC Davis)). |
+| **Direct PM2.5 Inhalation Saved** | ~0.1 mg (~100 µg) (est.) / 10 km | In-traffic commuter ventilation rate: 15 L/min; Roadside PM2.5 concentration: 250 µg/m³; Car cabin infiltration: 60% (approximate, based on public literature (WHO, CPCB, EPA, UC Davis)). |
+| **N95 Respirator Filtration** | ≥95% particulate capture | NIOSH standard testing at 85 L/min flow rate; Assumes facial seal with <5% edge leakage (approximate, based on public literature (WHO, CPCB, EPA, UC Davis)). |
+| **Bedroom HEPA Air Filtration** | ~85–95% PM2.5 reduction | 150 sq ft room with CADR 150 CFM, 0.5 ACH infiltration, operated for 8 hours overnight (approximate, based on public literature (WHO, CPCB, EPA, UC Davis)). |
+| **Corsi-Rosenthal DIY Box Fan** | ~60–75% PM2.5 reduction | 4 × MERV-13 filters + 20-inch box fan with shroud; ~200 CFM CADR at 1/5th commercial purifier cost (approximate, based on public literature (WHO, CPCB, EPA, UC Davis)). |
+| **Avoid Morning Exposure Peak** | 30–45% lower PM2.5 exposure | Midday vertical mixing height expands from 100m (7 AM) to 800m+ (1 PM), dispersing trapped surface pollutants (approximate, based on public literature (WHO, CPCB, EPA, UC Davis)). |
 
 ---
 
@@ -214,7 +214,7 @@ Every impact figure in the platform is clearly marked with `(est.)` and backed b
 
 ### 1. Clone & Install
 ```bash
-git clone https://github.com/mohdu/urban-air-quality-assistant.git
+git clone https://github.com/MOHDUBES/urban-air-quality-assistant.git
 cd urban-air-quality-assistant
 npm install
 ```
@@ -226,6 +226,7 @@ cp .env.example .env
 Edit `.env`:
 ```env
 GEMINI_API_KEY=your_actual_gemini_api_key_here
+GEMINI_MODEL=gemini-2.0-flash
 PORT=3001
 NODE_ENV=development
 ALLOWED_ORIGIN=http://localhost:5173
@@ -253,7 +254,7 @@ npm run lint
 npm run build
 ```
 
-See [TESTING.md](file:///c:/Users/mohdu/OneDrive/Desktop/Urban%20Air%20Quality%20Assistant/TESTING.md) for full test matrix details.
+See [TESTING.md](./TESTING.md) for full test matrix details.
 
 ---
 

@@ -263,7 +263,7 @@ export default function App() {
               <strong>Urban Air Quality Assistant</strong> • Open-Source Smog Resilience Platform
             </div>
             <div>
-              Telemetry: Open-Meteo Air Quality • AI: Google Gemini (Interactions API)
+              Telemetry: Open-Meteo Air Quality • AI: Google Gemini (gemini-2.0-flash)
             </div>
           </div>
         </footer>

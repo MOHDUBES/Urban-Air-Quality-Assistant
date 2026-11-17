@@ -281,12 +281,12 @@ export function generateFallbackPlan(profile, aqiData) {
     impactExplainer: [
       {
         recommendation: 'Switching 10 km daily commute from solo petrol car to Delhi Metro',
-        impact: 'Saves ~1.7 kg CO2 and prevents ~32 mg of direct personal PM2.5 inhalation (est.)',
+        impact: 'Saves ~1.7 kg CO2 and prevents ~0.1 mg (~100 µg) of direct personal PM2.5 inhalation (est.)',
         assumptions: 'Assumes average car fuel economy 14 km/L petrol, metro grid emission factor 0.72 kg CO2/kWh, average commuter breathing rate 15 L/min in traffic.',
       },
       {
         recommendation: 'Wearing a properly fitted N95 respirator mask during 45 min commute',
-        impact: 'Filters ~95% of airborne particulate matter, reducing daily inhaled PM2.5 by ~450 µg (est.)',
+        impact: 'Filters ~95% of airborne particulate matter, reducing daily inhaled PM2.5 by ~100 µg (0.1 mg) (est.)',
         assumptions: 'Assumes ambient PM2.5 of 200 µg/m³, minute ventilation of 12 L/min, and tight facial seal with <5% edge leakage.',
       },
       {
@@ -295,7 +295,7 @@ export function generateFallbackPlan(profile, aqiData) {
         assumptions: 'Assumes 150 sq ft sealed room, clean air delivery rate (CADR) of 150 CFM, and natural infiltration rate 0.5 ACH.',
       },
     ],
-    promptUsed: 'Rule-based deterministic engine grounded on Indian CPCB scale, WHO guidelines, and EPA indoor air quality models.',
+    promptUsed: 'Rule-based deterministic engine: approximate, based on public literature (WHO, CPCB, EPA, UC Davis).',
   }
 }
 
@@ -343,6 +343,6 @@ export function getRuleBasedWhatIf(profile, aqiData, choices) {
     explanation: actionsTaken.length > 0 
       ? actionsTaken.join(' ') 
       : 'No protective interventions selected. Baseline outdoor exposure remains unmitigated.',
-    assumptions: 'Estimates based on CPCB ambient monitoring, ICMR respiratory guidelines, and Bureau of Energy Efficiency transport benchmarks.',
+    assumptions: 'Estimates approximate, based on public literature (WHO, CPCB, EPA, UC Davis).',
   }
 }

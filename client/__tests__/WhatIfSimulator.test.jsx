@@ -11,7 +11,7 @@ describe('WhatIfSimulator Component', () => {
     estimatedExposureAqi: 98,
     co2SavedKg: '1.8 kg CO2/day (est.)',
     explanation: 'Metro transit avoids roadside particulate plumes and cuts tailpipe emissions.',
-    assumptions: 'Based on CPCB monitors and IIT-Delhi aerosol models.',
+    assumptions: 'Approximate, based on public literature (WHO, CPCB, EPA, UC Davis).',
   }
 
   test('renders simulation toggles with accessible states', () => {

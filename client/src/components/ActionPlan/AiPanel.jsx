@@ -15,7 +15,7 @@ export default function AiPanel({ plan, _source, isFallback }) {
           {isFallback ? (
             <Badge variant="fallback">Rule-Based Deterministic Engine</Badge>
           ) : (
-            <Badge variant="genai">Gemini 4 Hydrogen (Interactions API)</Badge>
+            <Badge variant="genai">Gemini 2.0 Flash</Badge>
           )}
           <span className="text-xs font-bold text-purple-900 dark:text-purple-300">
             {isFallback ? 'Zero-Failure Fallback System' : 'Verified Structured Output'}
