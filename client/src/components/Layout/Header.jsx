@@ -40,7 +40,7 @@ function ContrastIcon() {
 
 export default function Header({ theme, lang, onToggleLang }) {
   const { t } = useContext(LangContext);
-  const { isDark, toggleDark, isHighContrast, toggleHighContrast, fontSize, increaseFontSize, decreaseFontSize, resetFontSize } = theme;
+  const { isDark, toggleDark, isHighContrast, toggleHighContrast, fontSize: _fontSize, increaseFontSize, decreaseFontSize, resetFontSize } = theme;
 
   return (
     <header className="sticky top-0 z-40 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-sm">

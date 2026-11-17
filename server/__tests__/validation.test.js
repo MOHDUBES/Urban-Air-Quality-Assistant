@@ -73,7 +73,7 @@ describe('ProfileSchema', () => {
   })
 
   test('missing required field (city) fails', () => {
-    const { city, ...rest } = validProfile
+    const { city: _city, ...rest } = validProfile
     const result = ProfileSchema.safeParse(rest)
     expect(result.success).toBe(false)
   })
@@ -94,7 +94,7 @@ describe('ProfileSchema', () => {
   })
 
   test('language defaults to en when omitted', () => {
-    const { language, ...rest } = validProfile
+    const { language: _language, ...rest } = validProfile
     const result = ProfileSchema.safeParse(rest)
     expect(result.success).toBe(true)
     expect(result.data.language).toBe('en')
@@ -157,7 +157,7 @@ describe('ChatSchema', () => {
   })
 
   test('history defaults to [] when omitted', () => {
-    const { history, ...rest } = validChat
+    const { history: _history, ...rest } = validChat
     const result = ChatSchema.safeParse(rest)
     expect(result.success).toBe(true)
     expect(result.data.history).toEqual([])
@@ -222,7 +222,7 @@ describe('WhatIfSchema', () => {
   })
 
   test('missing profile fails', () => {
-    const { profile, ...rest } = validWhatIf
+    const { profile: _profile, ...rest } = validWhatIf
     const result = WhatIfSchema.safeParse(rest)
     expect(result.success).toBe(false)
   })

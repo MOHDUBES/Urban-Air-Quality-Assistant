@@ -4,7 +4,7 @@ import { LangContext } from '../../App'
 import SampleProfiles from './SampleProfiles.jsx'
 
 export default function ProfileForm({ onSubmit, initialValues, loading }) {
-  const { t, lang } = useContext(LangContext)
+  const { t: _t, lang } = useContext(LangContext)
 
   const [formData, setFormData] = useState({
     city: initialValues?.city || 'New Delhi',

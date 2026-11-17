@@ -17,17 +17,35 @@ const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || 'http://localhost:5173'
 
 // ── Security middleware ─────────────────────────────────────────────────────
 app.use(helmet())
+
+// Strictly restricted CORS
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow requests with no origin (like mobile apps, curl, server-to-server)
-    if (!origin || origin === ALLOWED_ORIGIN || origin.includes('localhost') || origin.endsWith('.vercel.app')) {
+    // Allow non-browser calls (like curl, health probes, server-to-server)
+    if (!origin) return callback(null, true)
+
+    // Allowed origins: exact match with ALLOWED_ORIGIN, local dev hosts, or Vercel preview domains
+    const isAllowed =
+      origin === ALLOWED_ORIGIN ||
+      /^http:\/\/localhost:(3000|3001|5173|4173)$/.test(origin) ||
+      /^https:\/\/.*\.vercel\.app$/.test(origin)
+
+    if (isAllowed) {
       return callback(null, true)
     }
-    return callback(null, true) // permissive for hackathon live review, guarded by helmet & rate limiters
+
+    if (process.env.NODE_ENV === 'production') {
+      return callback(new Error(`Origin ${origin} not allowed by CORS`))
+    }
+
+    // In non-production testing, be permissive with a warning
+    return callback(null, true)
   },
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type'],
+  credentials: true,
 }))
+
 app.use(express.json({ limit: '20kb' }))
 
 // ── Rate limiter ────────────────────────────────────────────────────────────

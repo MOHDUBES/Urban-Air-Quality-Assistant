@@ -1,7 +1,7 @@
 // client/src/components/Chat/ChatBox.jsx
 import React, { useState, useRef, useEffect } from 'react'
 
-export default function ChatBox({ onSendMessage, messages = [], loading, currentAqi, profile }) {
+export default function ChatBox({ onSendMessage, messages = [], loading, currentAqi, _profile }) {
   const [input, setInput] = useState('')
   const messagesEndRef = useRef(null)
 

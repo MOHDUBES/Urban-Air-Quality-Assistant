@@ -1,4 +1,4 @@
-/* client/src/index.css — Tailwind base styles */
+/* client/src/index.css — Tailwind base styles & accessibility themes */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,5 +9,53 @@
   }
   body {
     @apply transition-colors duration-200;
+  }
+
+  /* Accessible Font Size Adjustments */
+  html.font-size-sm {
+    font-size: 87.5%; /* 14px base */
+  }
+  html.font-size-md {
+    font-size: 100%; /* 16px base default */
+  }
+  html.font-size-lg {
+    font-size: 112.5%; /* 18px base */
+  }
+  html.font-size-xl {
+    font-size: 125%; /* 20px base */
+  }
+
+  /* High Contrast Accessibility Mode */
+  html.high-contrast {
+    filter: contrast(125%);
+  }
+
+  html.high-contrast body {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+  }
+
+  html.high-contrast .border,
+  html.high-contrast [class*="border-"] {
+    border-color: #ffffff !important;
+  }
+
+  html.high-contrast input,
+  html.high-contrast select,
+  html.high-contrast button {
+    border-width: 2px !important;
+    border-color: #ffffff !important;
+  }
+
+  /* Respect reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }

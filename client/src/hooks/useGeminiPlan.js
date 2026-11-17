@@ -28,7 +28,7 @@ export function useGeminiPlan() {
     try {
       const payload = {
         profile,
-        aqiOverride: aqiData?.aqi ? {
+        aqiOverride: aqiData?.manual ? {
           aqi: Number(aqiData.aqi),
           pm25: aqiData.pm25 != null ? Number(aqiData.pm25) : undefined,
           pm10: aqiData.pm10 != null ? Number(aqiData.pm10) : undefined,

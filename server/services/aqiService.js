@@ -65,7 +65,9 @@ export async function getAqiData(lat, lon) {
   url.searchParams.set('timezone', 'auto');
   url.searchParams.set('forecast_days', '1');
 
-  const res = await fetch(url.toString());
+  const res = await fetch(url.toString(), {
+    signal: AbortSignal.timeout(10000),
+  });
   if (!res.ok) throw new Error(`Open-Meteo AQI API error: ${res.status}`);
   const json = await res.json();
 
@@ -120,7 +122,9 @@ export async function geocodeCity(city) {
   url.searchParams.set('language', 'en');
   url.searchParams.set('format', 'json');
 
-  const res = await fetch(url.toString());
+  const res = await fetch(url.toString(), {
+    signal: AbortSignal.timeout(10000),
+  });
   if (!res.ok) throw new Error(`Geocoding API error: ${res.status}`);
   const json = await res.json();
 

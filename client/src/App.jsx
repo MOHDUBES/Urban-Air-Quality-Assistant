@@ -1,5 +1,5 @@
 // client/src/App.jsx
-import React, { useState, createContext, useEffect } from 'react'
+import { useState, createContext } from 'react'
 import en from './i18n/en.js'
 import hi from './i18n/hi.js'
 import { useTheme } from './hooks/useTheme.js'

@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import Badge from '../UI/Badge.jsx'
 
-export default function AiPanel({ plan, source, isFallback }) {
+export default function AiPanel({ plan, _source, isFallback }) {
   const [isOpen, setIsOpen] = useState(false)
 
   const promptText = plan?.promptUsed || 'Strict structured JSON system prompt sent with profile and local AQI telemetry.'

@@ -11,8 +11,8 @@ The test harness is split across two specialized frameworks:
 2. **Vitest + React Testing Library (Client)**: DOM component testing, accessibility role verification, live AQI formatting, and user onboarding flow validation.
 
 ```
-Total Test Suites: 7
-Total Tests Passing: 83
+Total Test Suites: 10
+Total Tests Passing: 93
 Code Coverage Focus: High-risk decision paths, schema gates, fallback engine, accessibility attributes
 ```
 
