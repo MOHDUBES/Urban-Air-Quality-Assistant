@@ -86,29 +86,6 @@
     font-size: 125%; /* 20px base */
   }
 
-  /* High contrast structural overrides */
-  html.high-contrast body {
-    background-color: #000000 !important;
-    color: #ffffff !important;
-  }
-
-  html.high-contrast .card,
-  html.high-contrast section,
-  html.high-contrast article,
-  html.high-contrast [class*="bg-navy-"],
-  html.high-contrast [class*="bg-white"] {
-    background-color: #000000 !important;
-    border-color: #ffffff !important;
-    border-width: 2px !important;
-  }
-
-  html.high-contrast input,
-  html.high-contrast select,
-  html.high-contrast button {
-    border-width: 2px !important;
-    border-color: #ffffff !important;
-  }
-
   /* Accessible focus indicators: 2px teal offset */
   :focus-visible {
     outline: 2px solid #14B8A6 !important;

@@ -14,17 +14,6 @@ function getInitialDark() {
   return window.matchMedia('(prefers-color-scheme: dark)').matches;
 }
 
-function getInitialHighContrast() {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      const parsed = JSON.parse(stored);
-      if (typeof parsed.isHighContrast === 'boolean') return parsed.isHighContrast;
-    }
-  } catch (_) {}
-  return false;
-}
-
 function getInitialFontSize() {
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
@@ -36,36 +25,32 @@ function getInitialFontSize() {
   return 'md';
 }
 
-function applyClasses(isDark, isHighContrast, fontSize) {
+function applyClasses(isDark, fontSize) {
   const root = document.documentElement;
   if (isDark) {
     root.classList.add('dark');
   } else {
     root.classList.remove('dark');
   }
-  if (isHighContrast) {
-    root.classList.add('high-contrast');
-  } else {
-    root.classList.remove('high-contrast');
-  }
+  // Ensure high-contrast is never active
+  root.classList.remove('high-contrast');
   FONT_SIZES.forEach((s) => root.classList.remove(`font-size-${s}`));
   root.classList.add(`font-size-${fontSize}`);
 }
 
 export function useTheme() {
   const [isDark, setIsDark] = useState(getInitialDark);
-  const [isHighContrast, setIsHighContrast] = useState(getInitialHighContrast);
   const [fontSize, setFontSizeState] = useState(getInitialFontSize);
 
   useEffect(() => {
-    applyClasses(isDark, isHighContrast, fontSize);
+    applyClasses(isDark, fontSize);
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({ isDark, isHighContrast, fontSize }));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ isDark, isHighContrast: false, fontSize }));
     } catch (_) {}
-  }, [isDark, isHighContrast, fontSize]);
+  }, [isDark, fontSize]);
 
   const toggleDark = useCallback(() => setIsDark((v) => !v), []);
-  const toggleHighContrast = useCallback(() => setIsHighContrast((v) => !v), []);
+  const toggleHighContrast = useCallback(() => {}, []);
   const setFontSize = useCallback((size) => {
     if (FONT_SIZES.includes(size)) setFontSizeState(size);
   }, []);
@@ -89,7 +74,7 @@ export function useTheme() {
   return {
     isDark,
     toggleDark,
-    isHighContrast,
+    isHighContrast: false,
     toggleHighContrast,
     fontSize,
     setFontSize,
@@ -98,3 +83,4 @@ export function useTheme() {
     resetFontSize,
   };
 }
+

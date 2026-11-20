@@ -15,11 +15,14 @@
           var isDark = typeof stored.isDark === 'boolean'
             ? stored.isDark
             : window.matchMedia('(prefers-color-scheme: dark)').matches;
-          var isHighContrast = stored.isHighContrast === true;
           var fontSize = ['sm','md','lg','xl'].includes(stored.fontSize) ? stored.fontSize : 'md';
           var root = document.documentElement;
-          if (isDark) root.classList.add('dark');
-          if (isHighContrast) root.classList.add('high-contrast');
+          if (isDark) {
+            root.classList.add('dark');
+          } else {
+            root.classList.remove('dark');
+          }
+          root.classList.remove('high-contrast');
           root.classList.add('font-size-' + fontSize);
         } catch (e) {}
       })();
