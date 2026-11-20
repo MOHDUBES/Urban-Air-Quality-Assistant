@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Urban Air Quality Assistant logo">
+  <title>Urban Air Quality Assistant logo</title>
+  <defs>
+    <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#0F766E" />
+    </linearGradient>
+  </defs>
+  <style>
+    .badge-bg { fill: #0B3B5A; stroke: #10B981; stroke-width: 1.5; }
+    .smog-cloud { fill: #94A3B8; opacity: 0.35; }
+    .leaf-body { fill: url(#leafGrad); }
+    .leaf-vein { stroke: #FFFFFF; stroke-width: 1.5; stroke-linecap: round; opacity: 0.85; }
+    .air-wave { stroke: #FFFFFF; stroke-width: 3.2; stroke-linecap: round; fill: none; }
+    .air-wave-accent { stroke: #10B981; stroke-width: 3.2; stroke-linecap: round; fill: none; }
+    @media (prefers-color-scheme: dark) {
+      .badge-bg { fill: #08293F; stroke: #34D399; stroke-width: 2; }
+    }
+    @media (forced-colors: active) {
+      .badge-bg { stroke: CanvasText; stroke-width: 2; }
+      .air-wave { stroke: CanvasText; }
+    }
+  </style>
+
+  <!-- Rounded badge background for high-contrast visibility on light & dark -->
+  <rect class="badge-bg" x="2" y="2" width="60" height="60" rx="14" />
+
+  <!-- Faint grey smog cloud fading out behind the leaf -->
+  <path class="smog-cloud" d="M 16 26 C 14 22 18 17 23 18 C 26 14 32 14 35 17 C 39 16 43 19 42 24 C 45 26 45 30 41 32 C 38 33 17 33 16 26 Z" />
+
+  <!-- Leaf upper half transitioning to clean air -->
+  <path class="leaf-body" d="M 32 11 C 21 19 17 27 22 35 C 27 32 37 32 42 35 C 47 27 43 19 32 11 Z" />
+  <line class="leaf-vein" x1="32" y1="14" x2="32" y2="33" />
+
+  <!-- 3 Flowing horizontal air wave lines (clean air dissolving from leaf) -->
+  <path class="air-wave" d="M 18 37 C 24 34 30 39 36 36 C 41 33 46 36 50 35" />
+  <path class="air-wave-accent" d="M 14 44 C 21 40 28 46 35 43 C 41 40 47 44 53 43" />
+  <path class="air-wave" d="M 19 51 C 25 48 31 53 37 50 C 42 47 46 50 49 50" />
+</svg>

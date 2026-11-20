@@ -45,12 +45,36 @@ export default function Header({ theme, lang, onToggleLang }) {
   return (
     <header className="sticky top-0 z-40 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-sm">
       <div className="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center gap-3">
-        {/* Title & tagline */}
-        <div className="flex-1 min-w-0">
-          <h1 className="text-lg font-bold text-gray-900 dark:text-white leading-tight truncate">
-            {t.nav.title}
-          </h1>
-          <p className="text-xs text-gray-500 dark:text-gray-400 hidden sm:block">{t.nav.tagline}</p>
+        {/* Logo, Title & tagline */}
+        <div className="flex-1 min-w-0 flex items-center gap-3">
+          <a
+            href="/"
+            aria-label="Urban Air Quality Assistant home"
+            className="flex-shrink-0 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 transition-transform active:scale-95"
+          >
+            <img
+              src="/logo-mark.svg"
+              alt="Urban Air Quality Assistant home"
+              width="38"
+              height="38"
+              className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl object-contain shadow-xs transition-colors ${
+                isHighContrast
+                  ? 'border-2 border-black dark:border-white ring-1 ring-black dark:ring-white'
+                  : 'border border-teal-600/30 dark:border-emerald-400/40'
+              }`}
+            />
+          </a>
+          <div className="min-w-0">
+            <h1 className="text-lg font-bold text-gray-900 dark:text-white leading-tight truncate">
+              <a
+                href="/"
+                className="hover:text-teal-700 dark:hover:text-emerald-400 focus:outline-none focus:underline transition-colors"
+              >
+                {t.nav.title}
+              </a>
+            </h1>
+            <p className="text-xs text-gray-500 dark:text-gray-400 hidden sm:block">{t.nav.tagline}</p>
+          </div>
         </div>
 
         {/* Controls */}

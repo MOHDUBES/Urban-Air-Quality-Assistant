@@ -92,6 +92,16 @@ export default function App() {
           {/* Hero Banner if no profile yet */}
           {!profile && (
             <div className="text-center py-6 max-w-2xl mx-auto space-y-3">
+              <div className="flex justify-center mb-1">
+                <img
+                  src="/logo-mark.svg"
+                  alt=""
+                  aria-hidden="true"
+                  width="60"
+                  height="60"
+                  className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl shadow-md border border-teal-600/30 dark:border-emerald-400/40 object-contain"
+                />
+              </div>
               <span className="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-200">
                 Delhi-NCR Winter Smog & Urban Clean Air Platform
               </span>

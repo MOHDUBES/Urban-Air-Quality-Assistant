@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 64" width="320" height="64" role="img" aria-label="Urban Air Quality Assistant logo full">
+  <title>Urban Air Quality Assistant</title>
+  <defs>
+    <linearGradient id="fullLeafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#0F766E" />
+    </linearGradient>
+  </defs>
+  <style>
+    .badge-bg { fill: #0B3B5A; stroke: #10B981; stroke-width: 1.5; }
+    .smog-cloud { fill: #94A3B8; opacity: 0.35; }
+    .leaf-body { fill: url(#fullLeafGrad); }
+    .leaf-vein { stroke: #FFFFFF; stroke-width: 1.5; stroke-linecap: round; opacity: 0.85; }
+    .air-wave { stroke: #FFFFFF; stroke-width: 3.2; stroke-linecap: round; fill: none; }
+    .air-wave-accent { stroke: #10B981; stroke-width: 3.2; stroke-linecap: round; fill: none; }
+    .brand-title { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 16.5px; font-weight: 700; fill: #0B3B5A; }
+    .brand-tagline { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 600; fill: #0F766E; letter-spacing: 0.4px; }
+    @media (prefers-color-scheme: dark) {
+      .badge-bg { fill: #08293F; stroke: #34D399; }
+      .brand-title { fill: #F8FAFC; }
+      .brand-tagline { fill: #34D399; }
+    }
+  </style>
+
+  <!-- Left: Icon Mark -->
+  <g transform="translate(0, 0)">
+    <rect class="badge-bg" x="2" y="2" width="60" height="60" rx="14" />
+    <path class="smog-cloud" d="M 16 26 C 14 22 18 17 23 18 C 26 14 32 14 35 17 C 39 16 43 19 42 24 C 45 26 45 30 41 32 C 38 33 17 33 16 26 Z" />
+    <path class="leaf-body" d="M 32 11 C 21 19 17 27 22 35 C 27 32 37 32 42 35 C 47 27 43 19 32 11 Z" />
+    <line class="leaf-vein" x1="32" y1="14" x2="32" y2="33" />
+    <path class="air-wave" d="M 18 37 C 24 34 30 39 36 36 C 41 33 46 36 50 35" />
+    <path class="air-wave-accent" d="M 14 44 C 21 40 28 46 35 43 C 41 40 47 44 53 43" />
+    <path class="air-wave" d="M 19 51 C 25 48 31 53 37 50 C 42 47 46 50 49 50" />
+  </g>
+
+  <!-- Right: Wordmark + Tagline -->
+  <text class="brand-title" x="76" y="31">Urban Air Quality Assistant</text>
+  <text class="brand-tagline" x="76" y="48">Breathe smarter</text>
+</svg>

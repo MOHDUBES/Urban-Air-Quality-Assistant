@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./client/public/logo-mark.svg" alt="Urban Air Quality Assistant Logo" width="120" height="120" />
+</p>
+
 # 🌫️ Urban Air Quality Assistant
 
 > **A GenAI-Powered Smog Defense & Community Action Platform**  
@@ -147,6 +151,24 @@ If the Gemini API key is unset, experiences network latency (> 10s), or encounte
 1. **Open-Meteo Air Quality API:** Free, open meteorological API providing hourly PM2.5, PM10, and European AQI mapped dynamically to Indian National AQI breakpoints.
 2. **Open-Meteo Geocoding API:** Fast coordinate resolution by city name with graceful fallback to manual AQI overrides.
 3. **Google Gemini API:** Structured cognitive synthesis of multi-factor risk, behavioral scheduling, and personalized advice.
+
+---
+
+## 🎨 Branding & Visual Identity
+
+The visual identity for **Urban Air Quality Assistant** is designed SVG-first to remain lightweight (<110 KB total) while maintaining high contrast across both light and dark themes:
+
+* **Logo Concept & Symbolism:** A deep navy protective rounded badge (`#0B3B5A`) housing a green leaf that dissolves into 3 flowing horizontal air wave lines (clean air), with a faint grey smog cloud shape (`#94A3B8`) fading in the background. It represents the transformation from winter smog to clean, sustainable breathing zones.
+* **Color Palette & Accessibility:**
+  * **Deep Navy (`#0B3B5A`):** Core badge background delivering 12.5:1 contrast against white backgrounds and robust dark-mode delineation.
+  * **Teal (`#0F766E`):** Primary UI brand accent and PWA theme color.
+  * **Emerald (`#10B981` / `#34D399`):** Health, sustainability, and clean air currents.
+  * **Smog Grey (`#94A3B8`):** Atmospheric particulate indicator.
+  * **WCAG AA Compliance:** Does not rely on color alone; includes geometric icons, text labels, and `@media (forced-colors: active)` support for Windows High Contrast mode.
+* **Deliverable Suite (`client/public/` & `client/src/assets/`):**
+  * `logo-mark.svg` & `logo-full.svg`: Scalable vector master files with embedded `<title>` and `role="img"`.
+  * `favicon.svg`: High-legibility simplified mark with internal `@media (prefers-color-scheme: dark)` styling.
+  * Multi-resolution assets: `favicon.ico` (16, 32, 48), `apple-touch-icon.png` (180x180), `icon-192.png` & `icon-512.png` (maskable PWA icons), and `og-image.png` (1200x630 link preview).
 
 ---
 
