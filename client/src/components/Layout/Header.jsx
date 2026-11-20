@@ -9,10 +9,6 @@ export default function Header({ theme, lang, onToggleLang }) {
     isDark,
     toggleDark,
     isHighContrast = false,
-    fontSize,
-    increaseFontSize,
-    decreaseFontSize,
-    resetFontSize,
   } = theme;
 
   return (
@@ -98,50 +94,6 @@ export default function Header({ theme, lang, onToggleLang }) {
               }`}
             >
               <Moon className="w-4 h-4" aria-hidden="true" strokeWidth={1.75} />
-            </button>
-          </div>
-
-          {/* Text Size Segmented Control */}
-          <div
-            className="bg-slate-100 dark:bg-navy-800 p-0.5 rounded-xl border border-slate-200/80 dark:border-white/10 flex items-center"
-            role="group"
-            aria-label={t.common.fontSize}
-          >
-            <button
-              type="button"
-              onClick={decreaseFontSize}
-              aria-label={t.common.decrease}
-              className={`px-2 py-1 rounded-lg text-xs font-bold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal ${
-                fontSize === 'sm'
-                  ? 'bg-white dark:bg-navy-700 text-brand-teal shadow-xs'
-                  : 'text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'
-              }`}
-            >
-              A−
-            </button>
-            <button
-              type="button"
-              onClick={resetFontSize}
-              aria-label={t.common.reset}
-              className={`px-2 py-1 rounded-lg text-xs font-bold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal ${
-                fontSize === 'md'
-                  ? 'bg-white dark:bg-navy-700 text-brand-teal shadow-xs'
-                  : 'text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'
-              }`}
-            >
-              A
-            </button>
-            <button
-              type="button"
-              onClick={increaseFontSize}
-              aria-label={t.common.increase}
-              className={`px-2 py-1 rounded-lg text-xs font-bold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal ${
-                fontSize === 'lg' || fontSize === 'xl'
-                  ? 'bg-white dark:bg-navy-700 text-brand-teal shadow-xs'
-                  : 'text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'
-              }`}
-            >
-              A+
             </button>
           </div>
         </div>
