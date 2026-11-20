@@ -4,6 +4,7 @@
 @tailwind utilities;
 
 @layer base {
+  /* Light theme (default) */
   :root {
     --bg-base: #F6F9FC;
     --bg-surface: #FFFFFF;
@@ -13,8 +14,15 @@
     --text-primary: #0F172A;
     --text-secondary: #475569;
     --text-muted: #64748B;
+    --hero-from: #EEF9F6;
+    --hero-to: #E0F2FE;
+    --hero-text: #0B3B5A;
+    --hero-muted: #475569;
+    --accent: #0F766E;
+    --accent-fg: #FFFFFF;
   }
 
+  /* Dark theme */
   .dark {
     --bg-base: #0A1220;
     --bg-surface: #101A2E;
@@ -24,6 +32,30 @@
     --text-primary: #F8FAFC;
     --text-secondary: #94A3B8;
     --text-muted: #64748B;
+    --hero-from: #0A1220;
+    --hero-to: #0F3D3A;
+    --hero-text: #F1F5F9;
+    --hero-muted: #94A3B8;
+    --accent: #14B8A6;
+    --accent-fg: #FFFFFF;
+  }
+
+  /* High-contrast theme (layered on top of dark or light) */
+  html.high-contrast {
+    --bg-base: #000000;
+    --bg-surface: #000000;
+    --bg-elevated: #111111;
+    --border-subtle: #FFFFFF;
+    --border-strong: #FFFFFF;
+    --text-primary: #FFFFFF;
+    --text-secondary: #FFD400;
+    --text-muted: #FFD400;
+    --hero-from: #000000;
+    --hero-to: #000000;
+    --hero-text: #FFFFFF;
+    --hero-muted: #FFD400;
+    --accent: #FFD400;
+    --accent-fg: #000000;
   }
 
   html {
@@ -54,11 +86,7 @@
     font-size: 125%; /* 20px base */
   }
 
-  /* High Contrast Accessibility Mode (Toggle Only) */
-  html.high-contrast {
-    filter: contrast(125%);
-  }
-
+  /* High contrast structural overrides */
   html.high-contrast body {
     background-color: #000000 !important;
     color: #ffffff !important;
@@ -85,6 +113,10 @@
   :focus-visible {
     outline: 2px solid #14B8A6 !important;
     outline-offset: 2px !important;
+  }
+
+  html.high-contrast :focus-visible {
+    outline-color: #FFD400 !important;
   }
 
   /* Respect reduced motion preference */
