@@ -4,6 +4,9 @@ const STORAGE_KEY = 'uaqa-theme';
 const FONT_SIZES = ['sm', 'md', 'lg', 'xl'];
 
 function getInitialDark() {
+  if (typeof document !== 'undefined') {
+    if (document.documentElement.classList.contains('dark')) return true;
+  }
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored) {
@@ -11,7 +14,10 @@ function getInitialDark() {
       if (typeof parsed.isDark === 'boolean') return parsed.isDark;
     }
   } catch (_) {}
-  return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (typeof window !== 'undefined' && window.matchMedia) {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  return false;
 }
 
 function getInitialFontSize() {
@@ -26,16 +32,18 @@ function getInitialFontSize() {
 }
 
 function applyClasses(isDark, fontSize) {
+  if (typeof document === 'undefined') return;
   const root = document.documentElement;
   if (isDark) {
     root.classList.add('dark');
+    root.setAttribute('data-theme', 'dark');
   } else {
     root.classList.remove('dark');
+    root.setAttribute('data-theme', 'light');
   }
-  // Ensure high-contrast is never active
   root.classList.remove('high-contrast');
   FONT_SIZES.forEach((s) => root.classList.remove(`font-size-${s}`));
-  root.classList.add(`font-size-${fontSize}`);
+  if (fontSize) root.classList.add(`font-size-${fontSize}`);
 }
 
 export function useTheme() {
@@ -49,7 +57,26 @@ export function useTheme() {
     } catch (_) {}
   }, [isDark, fontSize]);
 
-  const toggleDark = useCallback(() => setIsDark((v) => !v), []);
+  const setDarkMode = useCallback((enableDark) => {
+    const target = Boolean(enableDark);
+    setIsDark(target);
+    applyClasses(target, fontSize);
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ isDark: target, isHighContrast: false, fontSize }));
+    } catch (_) {}
+  }, [fontSize]);
+
+  const toggleDark = useCallback(() => {
+    setIsDark((prev) => {
+      const next = !prev;
+      applyClasses(next, fontSize);
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ isDark: next, isHighContrast: false, fontSize }));
+      } catch (_) {}
+      return next;
+    });
+  }, [fontSize]);
+
   const toggleHighContrast = useCallback(() => {}, []);
   const setFontSize = useCallback((size) => {
     if (FONT_SIZES.includes(size)) setFontSizeState(size);
@@ -73,6 +100,7 @@ export function useTheme() {
 
   return {
     isDark,
+    setDarkMode,
     toggleDark,
     isHighContrast: false,
     toggleHighContrast,
@@ -83,4 +111,5 @@ export function useTheme() {
     resetFontSize,
   };
 }
+
 

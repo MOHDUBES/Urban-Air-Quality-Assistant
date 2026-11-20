@@ -40,24 +40,6 @@
     --accent-fg: #FFFFFF;
   }
 
-  /* High-contrast theme (layered on top of dark or light) */
-  html.high-contrast {
-    --bg-base: #000000;
-    --bg-surface: #000000;
-    --bg-elevated: #111111;
-    --border-subtle: #FFFFFF;
-    --border-strong: #FFFFFF;
-    --text-primary: #FFFFFF;
-    --text-secondary: #FFD400;
-    --text-muted: #FFD400;
-    --hero-from: #000000;
-    --hero-to: #000000;
-    --hero-text: #FFFFFF;
-    --hero-muted: #FFD400;
-    --accent: #FFD400;
-    --accent-fg: #000000;
-  }
-
   html {
     scroll-behavior: smooth;
     font-size: 16px;

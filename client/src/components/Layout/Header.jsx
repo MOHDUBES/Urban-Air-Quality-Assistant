@@ -8,8 +8,25 @@ export default function Header({ theme, lang, onToggleLang }) {
   const {
     isDark,
     toggleDark,
+    setDarkMode,
     isHighContrast = false,
   } = theme;
+
+  const handleLightClick = () => {
+    if (setDarkMode) {
+      setDarkMode(false);
+    } else if (isDark && toggleDark) {
+      toggleDark();
+    }
+  };
+
+  const handleDarkClick = () => {
+    if (setDarkMode) {
+      setDarkMode(true);
+    } else if (!isDark && toggleDark) {
+      toggleDark();
+    }
+  };
 
   return (
     <header className="sticky top-0 z-40 backdrop-blur-md bg-white/95 dark:bg-navy-900/95 border-b border-slate-200/80 dark:border-white/10 shadow-xs transition-colors duration-200">
@@ -71,7 +88,7 @@ export default function Header({ theme, lang, onToggleLang }) {
           <div className="bg-slate-100 dark:bg-navy-800 p-0.5 rounded-xl border border-slate-200/80 dark:border-white/10 flex items-center gap-0.5">
             <button
               type="button"
-              onClick={isDark ? toggleDark : undefined}
+              onClick={handleLightClick}
               aria-label="Switch to light mode"
               aria-pressed={!isDark}
               className={`p-1.5 rounded-lg text-xs transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal ${
@@ -84,7 +101,7 @@ export default function Header({ theme, lang, onToggleLang }) {
             </button>
             <button
               type="button"
-              onClick={!isDark ? toggleDark : undefined}
+              onClick={handleDarkClick}
               aria-label="Switch to dark mode"
               aria-pressed={isDark}
               className={`p-1.5 rounded-lg text-xs transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal ${
