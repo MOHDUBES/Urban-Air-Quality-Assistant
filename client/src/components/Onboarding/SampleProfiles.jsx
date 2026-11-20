@@ -91,7 +91,7 @@ export default function SampleProfiles({ onSelect, selectedId }) {
             >
               <div className="flex items-center gap-2 mb-1">
                 <Icon className={`w-4 h-4 flex-shrink-0 ${isSelected ? 'text-teal-600 dark:text-teal-400' : 'text-slate-400 group-hover:text-teal-500'}`} aria-hidden="true" strokeWidth={1.75} />
-                <span className="font-bold truncate">{sample.title}</span>
+                <span className="font-bold break-words leading-tight">{sample.title}</span>
               </div>
               <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-tight line-clamp-1">
                 {sample.desc}
