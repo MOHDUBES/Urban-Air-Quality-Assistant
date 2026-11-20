@@ -15,7 +15,7 @@ router.post('/', validate(WhatIfSchema), async (req, res, next) => {
     try {
       result = await generateWhatIf(profile, { aqi }, choices, language)
     } catch (err) {
-      console.warn('[whatif] Gemini error, using rule-based fallback:', err.message)
+      console.error('[whatif] Gemini API error, using rule-based fallback:', err.message, err.cause || '')
       result = getRuleBasedWhatIf(profile, { aqi }, choices)
     }
 

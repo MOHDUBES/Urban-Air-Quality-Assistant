@@ -1,11 +1,31 @@
 // server/index.js
 // Express entry point for the Urban Air Quality Assistant API server.
 
-try {
-  process.loadEnvFile()
-} catch {
-  // Gracefully continue if .env does not exist
+import fs from 'node:fs'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
+// Robust environment variable loader supporting root and workspace working dirs
+function loadEnv() {
+  const candidates = [
+    path.resolve(process.cwd(), '.env'),
+    path.resolve(process.cwd(), '..', '.env'),
+  ]
+  for (const envPath of candidates) {
+    if (fs.existsSync(envPath)) {
+      try {
+        process.loadEnvFile(envPath)
+        break
+      } catch {
+        // Continue to next candidate
+      }
+    }
+  }
 }
+loadEnv()
 
 import express from 'express'
 import cors from 'cors'
@@ -68,6 +88,16 @@ app.use(['/api/whatif', '/whatif'], whatifRouter)
 // ── Health check ────────────────────────────────────────────────────────────
 app.get(['/api/health', '/health'], (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() })
+})
+
+// ── Static client files ───────────────────────────────────────────────────
+const clientDist = path.join(__dirname, '../client/dist')
+app.use(express.static(clientDist))
+app.get('*', (req, res, next) => {
+  if (req.path.startsWith('/api') || req.path.startsWith('/health')) return next()
+  res.sendFile(path.join(clientDist, 'index.html'), (err) => {
+    if (err) next()
+  })
 })
 
 // ── Error handler (must be last) ─────────────────────────────────────────

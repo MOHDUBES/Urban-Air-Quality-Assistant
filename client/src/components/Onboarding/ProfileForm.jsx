@@ -1,10 +1,11 @@
 // client/src/components/Onboarding/ProfileForm.jsx
 import React, { useState, useEffect, useContext } from 'react'
+import { AlertCircle, ArrowRight, Loader2, MapPin } from 'lucide-react'
 import { LangContext } from '../../App'
 import SampleProfiles from './SampleProfiles.jsx'
 
 export default function ProfileForm({ onSubmit, initialValues, loading }) {
-  const { t: _t, lang } = useContext(LangContext)
+  const { lang } = useContext(LangContext)
 
   const [formData, setFormData] = useState({
     city: initialValues?.city || 'New Delhi',
@@ -17,6 +18,7 @@ export default function ProfileForm({ onSubmit, initialValues, loading }) {
     budget: initialValues?.budget || 'medium',
   })
 
+  const [selectedPresetId, setSelectedPresetId] = useState(null)
   const [errors, setErrors] = useState({})
   const [validatingCity, setValidatingCity] = useState(false)
 
@@ -26,8 +28,9 @@ export default function ProfileForm({ onSubmit, initialValues, loading }) {
     }
   }, [initialValues])
 
-  const handleSampleSelect = (sampleData) => {
+  const handleSampleSelect = (sampleData, id) => {
     setFormData((prev) => ({ ...prev, ...sampleData }))
+    setSelectedPresetId(id)
     setErrors({})
   }
 
@@ -82,12 +85,12 @@ export default function ProfileForm({ onSubmit, initialValues, loading }) {
   }
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-gray-200 dark:border-gray-700 p-6 md:p-8">
+    <div className="bg-white dark:bg-navy-850 rounded-card shadow-card border border-slate-200/80 dark:border-white/10 p-6 md:p-8 transition-colors duration-200">
       <div className="mb-6">
-        <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white">
+        <h2 className="text-xl md:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
           {lang === 'hi' ? 'अपनी प्रोफ़ाइल और स्थान सेट करें' : 'Personalize Your Smog Defense Plan'}
         </h2>
-        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+        <p className="text-sm font-medium text-slate-600 dark:text-slate-400 mt-1">
           {lang === 'hi'
             ? 'अपनी जीवनशैली और संवेदनशील सदस्यों के आधार पर व्यक्तिगत मार्गदर्शन प्राप्त करें।'
             : 'Tailored recommendations grounded in WHO air quality thresholds and local CPCB pollution trends.'}
@@ -95,15 +98,18 @@ export default function ProfileForm({ onSubmit, initialValues, loading }) {
       </div>
 
       {/* 3 Instant Demo presets */}
-      <SampleProfiles onSelect={handleSampleSelect} />
+      <SampleProfiles onSelect={handleSampleSelect} selectedId={selectedPresetId} />
 
       <form onSubmit={handleSubmit} noValidate className="space-y-5">
-        {/* City Input */}
+        {/* Top Field: City Input */}
         <div>
-          <label htmlFor="city-input" className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-1">
+          <label htmlFor="city-input" className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1.5">
             City Name <span className="text-red-500">*</span>
           </label>
           <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+              <MapPin className="w-5 h-5 text-teal-600 dark:text-teal-400" aria-hidden="true" strokeWidth={1.75} />
+            </div>
             <input
               id="city-input"
               name="city"
@@ -111,34 +117,40 @@ export default function ProfileForm({ onSubmit, initialValues, loading }) {
               required
               aria-required="true"
               aria-invalid={Boolean(errors.city)}
-              aria-describedby={errors.city ? 'city-error' : undefined}
+              aria-describedby={errors.city ? 'city-error' : 'city-helper'}
               value={formData.city}
               onChange={handleChange}
               placeholder="e.g. New Delhi, Noida, Gurugram, Mumbai"
-              className={`w-full px-4 py-2.5 rounded-xl border ${
+              className={`w-full h-12 pl-11 pr-24 rounded-btn border text-sm font-medium transition-all ${
                 errors.city
-                  ? 'border-red-500 bg-red-50 dark:bg-red-950/20'
-                  : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900'
-              } text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm`}
+                  ? 'border-red-500 bg-red-50/50 dark:bg-red-950/20 text-red-900 dark:text-red-100 focus:ring-red-500'
+                  : 'border-slate-300 dark:border-white/10 bg-slate-50/50 dark:bg-navy-900 text-slate-900 dark:text-white focus:border-brand-teal focus:bg-white dark:focus:bg-navy-900'
+              } focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal`}
             />
             {validatingCity && (
-              <span className="absolute right-3 top-2.5 text-xs text-gray-400 animate-pulse">
-                Checking…
+              <span className="absolute right-3.5 inset-y-0 flex items-center gap-1.5 text-xs text-teal-600 dark:text-teal-400 font-semibold animate-pulse">
+                <Loader2 className="w-3.5 h-3.5 animate-spin" aria-hidden="true" />
+                <span>Checking…</span>
               </span>
             )}
           </div>
-          {errors.city && (
-            <p id="city-error" role="alert" className="mt-1.5 text-xs font-medium text-red-600 dark:text-red-400">
-              {errors.city}
+          {errors.city ? (
+            <p id="city-error" role="alert" className="mt-1.5 text-xs font-semibold text-red-600 dark:text-red-400 flex items-center gap-1">
+              <AlertCircle className="w-3.5 h-3.5 flex-shrink-0" aria-hidden="true" />
+              <span>{errors.city}</span>
+            </p>
+          ) : (
+            <p id="city-helper" className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+              Live coordinates and hourly AQI will be fetched via Open-Meteo.
             </p>
           )}
         </div>
 
-        {/* 2-column grid for selects */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {/* 2-column grid for selects on desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4.5">
           {/* Household Type */}
           <div>
-            <label htmlFor="household-select" className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-1">
+            <label htmlFor="household-select" className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1.5">
               Household Type
             </label>
             <select
@@ -146,7 +158,7 @@ export default function ProfileForm({ onSubmit, initialValues, loading }) {
               name="householdType"
               value={formData.householdType}
               onChange={handleChange}
-              className="w-full px-3 py-2.5 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full h-12 px-3.5 rounded-btn border border-slate-300 dark:border-white/10 bg-slate-50/50 dark:bg-navy-900 text-slate-900 dark:text-white text-sm font-medium focus:outline-none focus:border-brand-teal focus:bg-white dark:focus:bg-navy-900 focus-visible:ring-2 focus-visible:ring-brand-teal transition-all"
             >
               <option value="asthma">🫁 Asthma / Respiratory Patient</option>
               <option value="family_kids">👨‍👩‍👧‍👦 Family with Young Kids</option>
@@ -154,11 +166,14 @@ export default function ProfileForm({ onSubmit, initialValues, loading }) {
               <option value="working_professional">💼 Working Professional</option>
               <option value="student">🎓 Student / Young Adult</option>
             </select>
+            <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400">
+              Calibrates clinical vulnerability weightings.
+            </p>
           </div>
 
           {/* Commute Mode */}
           <div>
-            <label htmlFor="commute-select" className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-1">
+            <label htmlFor="commute-select" className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1.5">
               Primary Commute
             </label>
             <select
@@ -166,7 +181,7 @@ export default function ProfileForm({ onSubmit, initialValues, loading }) {
               name="commuteMode"
               value={formData.commuteMode}
               onChange={handleChange}
-              className="w-full px-3 py-2.5 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full h-12 px-3.5 rounded-btn border border-slate-300 dark:border-white/10 bg-slate-50/50 dark:bg-navy-900 text-slate-900 dark:text-white text-sm font-medium focus:outline-none focus:border-brand-teal focus:bg-white dark:focus:bg-navy-900 focus-visible:ring-2 focus-visible:ring-brand-teal transition-all"
             >
               <option value="metro_bus">🚇 Metro / Bus (Public Transit)</option>
               <option value="car">🚗 Personal Car</option>
@@ -174,11 +189,14 @@ export default function ProfileForm({ onSubmit, initialValues, loading }) {
               <option value="walk">🚶 Walk / Bicycle</option>
               <option value="wfh">🏠 Work From Home (No commute)</option>
             </select>
+            <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400">
+              Estimates roadside inhalation exposure.
+            </p>
           </div>
 
-          {/* Home Type */}
+          {/* Dwelling Type */}
           <div>
-            <label htmlFor="home-select" className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-1">
+            <label htmlFor="home-select" className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1.5">
               Dwelling Type
             </label>
             <select
@@ -186,16 +204,19 @@ export default function ProfileForm({ onSubmit, initialValues, loading }) {
               name="homeType"
               value={formData.homeType}
               onChange={handleChange}
-              className="w-full px-3 py-2.5 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full h-12 px-3.5 rounded-btn border border-slate-300 dark:border-white/10 bg-slate-50/50 dark:bg-navy-900 text-slate-900 dark:text-white text-sm font-medium focus:outline-none focus:border-brand-teal focus:bg-white dark:focus:bg-navy-900 focus-visible:ring-2 focus-visible:ring-brand-teal transition-all"
             >
               <option value="apartment">🏢 Apartment / Multi-story Flat</option>
               <option value="independent">🏡 Independent House / Ground Floor</option>
             </select>
+            <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400">
+              Guides natural air infiltration and ventilation hacks.
+            </p>
           </div>
 
-          {/* Budget */}
+          {/* Intervention Budget */}
           <div>
-            <label htmlFor="budget-select" className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-1">
+            <label htmlFor="budget-select" className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1.5">
               Intervention Budget
             </label>
             <select
@@ -203,48 +224,53 @@ export default function ProfileForm({ onSubmit, initialValues, loading }) {
               name="budget"
               value={formData.budget}
               onChange={handleChange}
-              className="w-full px-3 py-2.5 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full h-12 px-3.5 rounded-btn border border-slate-300 dark:border-white/10 bg-slate-50/50 dark:bg-navy-900 text-slate-900 dark:text-white text-sm font-medium focus:outline-none focus:border-brand-teal focus:bg-white dark:focus:bg-navy-900 focus-visible:ring-2 focus-visible:ring-brand-teal transition-all"
             >
               <option value="low">🌱 Low / DIY Hacks (&lt; ₹500)</option>
               <option value="medium">⚖️ Medium / Standard Purifier (₹500 - ₹2,000)</option>
               <option value="high">🛡️ High / Premium Smart HEPA (₹2,000+)</option>
             </select>
+            <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400">
+              Ranks DIY Corsi-Rosenthal boxes vs. HEPA hardware.
+            </p>
           </div>
         </div>
 
-        {/* Air Purifier Toggle */}
-        <div className="flex items-center gap-3 p-3.5 rounded-xl bg-gray-50 dark:bg-gray-900/60 border border-gray-200 dark:border-gray-700">
+        {/* Air Purifier Toggle Card */}
+        <div className="flex items-center gap-3 p-4 rounded-xl bg-slate-50/80 dark:bg-navy-800/60 border border-slate-200/80 dark:border-white/10 transition-colors">
           <input
             id="purifier-checkbox"
             name="hasAirPurifier"
             type="checkbox"
             checked={formData.hasAirPurifier}
             onChange={handleChange}
-            className="w-4 h-4 text-blue-600 rounded border-gray-300 dark:border-gray-600 focus:ring-blue-500"
+            className="w-4 h-4 rounded text-teal-600 focus:ring-brand-teal border-slate-300 dark:border-slate-600 dark:bg-navy-900"
           />
-          <label htmlFor="purifier-checkbox" className="text-sm font-medium text-gray-800 dark:text-gray-200 cursor-pointer">
+          <label htmlFor="purifier-checkbox" className="text-sm font-semibold text-slate-800 dark:text-slate-200 cursor-pointer select-none">
             I already have an active Air Purifier at home
           </label>
         </div>
 
-        {/* Submit */}
-        <button
-          type="submit"
-          disabled={loading || validatingCity}
-          className="w-full py-3.5 px-6 rounded-xl bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-bold text-sm tracking-wide shadow-md transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
-        >
-          {loading || validatingCity ? (
-            <>
-              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-              <span>{validatingCity ? 'Locating City…' : 'Generating Plan…'}</span>
-            </>
-          ) : (
-            <>
-              <span>Generate Personalized Smog Action Plan</span>
-              <span aria-hidden="true">→</span>
-            </>
-          )}
-        </button>
+        {/* Primary CTA */}
+        <div className="pt-2">
+          <button
+            type="submit"
+            disabled={loading || validatingCity}
+            className="w-full h-12 px-6 rounded-btn bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-white font-bold text-sm sm:text-base tracking-wide shadow-md shadow-teal-500/20 active:scale-[0.99] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
+          >
+            {loading || validatingCity ? (
+              <span className="flex items-center gap-2" role="status" aria-live="polite">
+                <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" />
+                <span>{validatingCity ? 'Locating City…' : 'Generating your plan...'}</span>
+              </span>
+            ) : (
+              <>
+                <span>Generate Personalized Smog Action Plan</span>
+                <ArrowRight className="w-4 h-4" aria-hidden="true" />
+              </>
+            )}
+          </button>
+        </div>
       </form>
     </div>
   )

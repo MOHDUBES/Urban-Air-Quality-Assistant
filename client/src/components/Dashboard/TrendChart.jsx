@@ -12,6 +12,7 @@ import {
   Filler,
 } from 'chart.js'
 import { Line } from 'react-chartjs-2'
+import { Table, LineChart as ChartIcon, Info } from 'lucide-react'
 import AqiTable from './AqiTable.jsx'
 
 ChartJS.register(
@@ -51,28 +52,34 @@ export default function TrendChart({ hourlyData }) {
   const aqiValues = items.map((d) => d.aqi)
   const pm25Values = items.map((d) => d.pm25)
 
+  // Custom Chart.js data with clean curves and area fills
   const data = {
     labels,
     datasets: [
       {
         label: 'AQI Index',
         data: aqiValues,
-        borderColor: '#7c3aed',
-        backgroundColor: 'rgba(124, 58, 237, 0.15)',
+        borderColor: '#14B8A6', // Brand Teal
+        backgroundColor: 'rgba(20, 184, 166, 0.16)',
         fill: true,
-        tension: 0.35,
-        pointRadius: 2,
-        pointHoverRadius: 5,
+        tension: 0.38,
+        pointRadius: 3,
+        pointHoverRadius: 6,
+        pointBackgroundColor: '#14B8A6',
+        pointBorderColor: '#FFFFFF',
+        pointBorderWidth: 1.5,
         yAxisID: 'y',
       },
       {
         label: 'PM2.5 (µg/m³)',
         data: pm25Values,
-        borderColor: '#ef4444',
+        borderColor: '#F58220', // CPCB Poor / Orange
         backgroundColor: 'transparent',
-        borderDash: [4, 4],
-        tension: 0.3,
-        pointRadius: 1,
+        borderDash: [5, 4],
+        tension: 0.35,
+        pointRadius: 2,
+        pointHoverRadius: 5,
+        pointBackgroundColor: '#F58220',
         yAxisID: 'y1',
       },
     ],
@@ -81,69 +88,140 @@ export default function TrendChart({ hourlyData }) {
   const options = {
     responsive: true,
     maintainAspectRatio: false,
-    animation: prefersReducedMotion ? false : { duration: 600 },
+    animation: prefersReducedMotion ? false : { duration: 500 },
+    interaction: {
+      mode: 'index',
+      intersect: false,
+    },
     plugins: {
       legend: {
         position: 'top',
+        align: 'end',
         labels: {
-          boxWidth: 12,
-          font: { size: 11 },
+          boxWidth: 14,
+          boxHeight: 14,
+          usePointStyle: true,
+          pointStyle: 'circle',
+          font: { size: 12, weight: '600' },
+          color: '#64748B', // WCAG AA contrast muted
+          padding: 16,
         },
       },
       tooltip: {
-        mode: 'index',
-        intersect: false,
+        backgroundColor: 'rgba(10, 18, 32, 0.94)',
+        titleColor: '#FFFFFF',
+        titleFont: { size: 13, weight: 'bold' },
+        bodyFont: { size: 12 },
+        bodySpacing: 5,
+        padding: 12,
+        cornerRadius: 10,
+        borderColor: 'rgba(255, 255, 255, 0.1)',
+        borderWidth: 1,
       },
     },
     scales: {
       x: {
         grid: { display: false },
-        ticks: { maxTicksLimit: 8, font: { size: 10 } },
+        ticks: {
+          maxTicksLimit: 8,
+          font: { size: 12, weight: '500' },
+          color: '#64748B',
+        },
       },
       y: {
         type: 'linear',
         display: true,
         position: 'left',
-        title: { display: true, text: 'AQI', font: { size: 10 } },
-        ticks: { font: { size: 10 } },
+        title: {
+          display: true,
+          text: 'AQI Index',
+          font: { size: 12, weight: 'bold' },
+          color: '#14B8A6',
+        },
+        ticks: {
+          font: { size: 12 },
+          color: '#64748B',
+        },
+        grid: {
+          color: 'rgba(148, 163, 184, 0.1)',
+        },
       },
       y1: {
         type: 'linear',
         display: true,
         position: 'right',
         grid: { drawOnChartArea: false },
-        title: { display: true, text: 'PM2.5 (µg/m³)', font: { size: 10 } },
-        ticks: { font: { size: 10 } },
+        title: {
+          display: true,
+          text: 'PM2.5 (µg/m³)',
+          font: { size: 12, weight: 'bold' },
+          color: '#F58220',
+        },
+        ticks: {
+          font: { size: 12 },
+          color: '#64748B',
+        },
       },
     },
   }
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 shadow-md">
-      <div className="flex items-center justify-between gap-3 mb-4">
+    <div className="bg-white dark:bg-navy-850 rounded-card p-6 md:p-7 shadow-card border border-slate-200/80 dark:border-white/10 transition-colors duration-200">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
         <div>
-          <h3 className="text-base font-bold text-gray-900 dark:text-white">
+          <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-white tracking-tight">
             24-Hour Smog Trend
           </h3>
-          <p className="text-xs text-gray-500 dark:text-gray-400">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
             Open-Meteo hourly particulate dispersion and AQI curve
           </p>
         </div>
 
+        {/* Accessible Table vs Chart Toggle Button */}
         <button
           type="button"
           onClick={() => setShowTable((v) => !v)}
-          className="text-xs font-semibold px-2.5 py-1 rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="text-xs font-semibold px-3 py-1.5 rounded-xl border border-slate-200/80 dark:border-white/10 bg-slate-50 hover:bg-slate-100 dark:bg-navy-800 dark:hover:bg-navy-750 text-slate-700 dark:text-slate-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal transition-all flex items-center gap-1.5"
           aria-expanded={showTable}
         >
-          {showTable ? 'Show Chart' : 'Accessible Table'}
+          {showTable ? (
+            <>
+              <ChartIcon className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" aria-hidden="true" />
+              <span>Show Chart</span>
+            </>
+          ) : (
+            <>
+              <Table className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" aria-hidden="true" />
+              <span>Accessible Table</span>
+            </>
+          )}
         </button>
+      </div>
+
+      {/* AQI Danger Zones Legend Banner */}
+      <div className="mb-3 px-3 py-1.5 rounded-xl bg-slate-50/80 dark:bg-navy-900/60 border border-slate-200/60 dark:border-white/5 flex flex-wrap items-center gap-3 text-[11px] font-medium text-slate-500 dark:text-slate-400">
+        <span className="font-bold flex items-center gap-1 text-slate-700 dark:text-slate-300">
+          <Info className="w-3.5 h-3.5" aria-hidden="true" />
+          <span>CPCB Alert Bands:</span>
+        </span>
+        <span className="inline-flex items-center gap-1">
+          <span className="w-2 h-2 rounded-full bg-[#F58220]" />
+          <span>Poor (201-300)</span>
+        </span>
+        <span className="inline-flex items-center gap-1">
+          <span className="w-2 h-2 rounded-full bg-[#E03C31]" />
+          <span>Very Poor (301-400)</span>
+        </span>
+        <span className="inline-flex items-center gap-1">
+          <span className="w-2 h-2 rounded-full bg-[#9B1C31]" />
+          <span>Severe (401+)</span>
+        </span>
       </div>
 
       {showTable ? (
         <AqiTable hourlyData={items} />
       ) : (
-        <div className="h-64 w-full">
+        <div className="h-64 sm:h-72 w-full">
           <Line data={data} options={options} aria-label="24-hour Air Quality trend line chart" />
         </div>
       )}

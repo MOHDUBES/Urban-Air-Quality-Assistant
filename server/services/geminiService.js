@@ -1,12 +1,26 @@
+import fs from 'node:fs'
+import path from 'node:path'
 import { GoogleGenAI } from '@google/genai'
 import { getBaselineRecommendations, getAqiCategory } from './fallbackEngine.js'
 
-// Load .env if present
-try {
-  process.loadEnvFile()
-} catch {
-  // Gracefully continue if .env does not exist
+// Load .env if present across workspace or root working directories
+function loadEnv() {
+  const candidates = [
+    path.resolve(process.cwd(), '.env'),
+    path.resolve(process.cwd(), '..', '.env'),
+  ]
+  for (const envPath of candidates) {
+    if (fs.existsSync(envPath)) {
+      try {
+        process.loadEnvFile(envPath)
+        break
+      } catch {
+        // Continue
+      }
+    }
+  }
 }
+loadEnv()
 
 // ---------------------------------------------------------------------------
 // Model configuration & execution
@@ -14,9 +28,10 @@ try {
 
 const CANDIDATE_MODELS = [
   process.env.GEMINI_MODEL,
-  'gemini-2.0-flash',
   'gemini-3.1-flash-lite',
-  'gemini-3.8-flash',
+  'gemini-3.5-flash',
+  'gemini-2.5-flash',
+  'gemini-2.0-flash',
 ].filter(Boolean)
 
 function getGenAiClient() {

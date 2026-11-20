@@ -93,9 +93,26 @@ flowchart TD
 
 ---
 
+## 📸 Application Walkthrough & Screenshots
+
+| 1. Hero & Smart Onboarding | 2. Live AQI Dashboard & 24h Trend |
+|---|---|
+| ![Hero & Smart Onboarding Form](./docs/screenshots/01-hero-profile-dark.webp) | ![Live AQI Dashboard & 24h Trend Chart](./docs/screenshots/02-dashboard-dark.webp) |
+| *Clean-air branding, trust chips, and multi-factor household onboarding.* | *CPCB scale bar, dynamic WHO limit multiples, and 24-hour pollution forecast.* |
+
+| 3. Personalized Gemini AI Action Plan | 4. Dynamic "What-If" Exposure Simulator |
+|---|---|
+| ![Personalized Gemini AI Action Plan](./docs/screenshots/03-action-plan-dark.webp) | ![Dynamic What-If Exposure Simulator](./docs/screenshots/04-whatif-simulator-dark.webp) |
+| *Timeline routines with safest windows, ranked DIY hacks, and emissions cuts.* | *Interactive switch cards, before/after AQI comparison bars, and CO2 counters.* |
+
+> [!TIP]
+> The platform also features a full **[Light Theme](./docs/screenshots/06-dashboard-light.webp)**, **[WCAG AAA High-Contrast Mode](./docs/screenshots/07-dashboard-high-contrast.webp)**, and a **[Mobile-First Viewport](./docs/screenshots/08-mobile-view-360px.webp)** for seamless accessibility on smartphones.
+
+---
+
 ## 🧠 How GenAI is Used (Prompt Design & Architecture)
 
-The system utilizes **Google Gemini** (`gemini-2.0-flash`) via the official `@google/genai` (>= 3.2.0) SDK.
+The system utilizes **Google Gemini** (preferring `gemini-2.0-flash` with automatic fallback to latest flash models such as `gemini-3.1-flash-lite`) via the official `@google/genai` SDK.
 
 ### 1. Architectural Guardrails
 * **Zero Client Leakage:** The Gemini API key resides solely in backend environment variables. The browser never receives or transmits API credentials.

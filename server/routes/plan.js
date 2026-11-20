@@ -52,7 +52,7 @@ router.post('/', validate(PlanBodySchema), async (req, res, next) => {
     try {
       plan = await generateActionPlan(profile, aqiData, profile.language)
     } catch (geminiErr) {
-      console.warn('[plan] Gemini failed, using fallback:', geminiErr.message)
+      console.error('[plan] Gemini API error, using rule-based fallback:', geminiErr.message, geminiErr.cause || '')
       plan = generateFallbackPlan(profile, aqiData)
       fallback = true
       source = 'fallback'

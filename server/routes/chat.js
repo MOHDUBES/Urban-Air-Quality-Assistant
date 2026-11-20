@@ -16,7 +16,7 @@ router.post('/', validate(ChatSchema), async (req, res, next) => {
     try {
       reply = await generateChatResponse(message, profile, { aqi, pm25: null, pm10: null }, history, language)
     } catch (err) {
-      console.warn('[chat] Gemini error, using rule-based fallback reply:', err.message)
+      console.error('[chat] Gemini API error, using rule-based fallback reply:', err.message, err.cause || '')
       reply = `Based on current AQI (${aqi}) for a ${profile.householdType.replace('_', ' ')} household, sensitive individuals should strictly wear an N95 mask outdoors, keep windows sealed during peak hours, and operate indoor air filtration.`
     }
 
