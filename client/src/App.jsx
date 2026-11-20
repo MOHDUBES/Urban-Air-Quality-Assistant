@@ -118,7 +118,7 @@ export default function App() {
 
   return (
     <LangContext.Provider value={{ t, lang, toggleLang }}>
-      <div className="min-h-screen bg-slate-50 dark:bg-navy-900 text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors duration-200">
+      <div className="min-h-screen flex flex-col font-sans" style={{ backgroundColor: 'var(--bg-base)', color: 'var(--text-primary)' }}>
         <SkipLink />
         <Header theme={theme} lang={lang} onToggleLang={toggleLang} />
 
