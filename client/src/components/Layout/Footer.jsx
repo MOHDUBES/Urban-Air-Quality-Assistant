@@ -24,7 +24,10 @@ function GithubIcon(props) {
 
 export default function Footer() {
   return (
-    <footer className="mt-16 border-t border-slate-200/80 dark:border-white/10 bg-white/70 dark:bg-navy-900/70 backdrop-blur-md py-10 text-xs text-slate-500 dark:text-slate-400 transition-colors">
+    <footer
+      className="mt-16 border-t border-slate-200/80 dark:border-white/10 bg-white/70 dark:bg-navy-900/70 backdrop-blur-md py-10 text-xs text-slate-500 dark:text-slate-400 transition-colors"
+      style={{ backgroundColor: 'var(--bg-base)', borderColor: 'var(--border-subtle)' }}
+    >
       <div className="max-w-6xl mx-auto px-4 space-y-6">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-6 border-b border-slate-200/60 dark:border-white/5">
           {/* Brand */}

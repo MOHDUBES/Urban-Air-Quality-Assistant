@@ -83,7 +83,10 @@ export default function WhatIfSimulator({ onRunWhatIf, result, loading, currentA
   const effectivePct = Math.min(100, Math.round((effectiveAqi / maxBar) * 100))
 
   return (
-    <div className="bg-white dark:bg-navy-850 rounded-2xl p-6 md:p-8 border border-slate-200/80 dark:border-white/10 shadow-sm transition-colors">
+    <div
+      className="bg-white dark:bg-navy-850 rounded-2xl p-6 md:p-8 border border-slate-200/80 dark:border-white/10 shadow-sm transition-colors"
+      style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
+    >
       <div className="mb-6">
         <div className="flex items-center gap-2.5 mb-1.5">
           <div className="w-8 h-8 rounded-lg bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center shrink-0">

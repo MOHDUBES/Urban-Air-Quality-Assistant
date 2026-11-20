@@ -166,7 +166,10 @@ export default function TrendChart({ hourlyData }) {
   }
 
   return (
-    <div className="bg-white dark:bg-navy-850 rounded-card p-6 md:p-7 shadow-card border border-slate-200/80 dark:border-white/10 transition-colors duration-200">
+    <div
+      className="bg-white dark:bg-navy-850 rounded-card p-6 md:p-7 shadow-card border border-slate-200/80 dark:border-white/10 transition-colors duration-200"
+      style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
+    >
       <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
         <div>
           <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-white tracking-tight">

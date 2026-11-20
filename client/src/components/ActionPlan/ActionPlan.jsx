@@ -61,6 +61,7 @@ export default function ActionPlan({ plan, isFallback, source }) {
       tabIndex="-1"
       aria-label="Personalized Air Quality Action Plan"
       className="bg-white dark:bg-navy-850 rounded-2xl shadow-sm border border-slate-200/80 dark:border-white/10 p-6 md:p-8 space-y-8 focus:outline-none transition-colors"
+      style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
     >
       {/* Header Banner */}
       <div className="flex flex-wrap items-center justify-between gap-3 pb-6 border-b border-slate-200/80 dark:border-white/10">

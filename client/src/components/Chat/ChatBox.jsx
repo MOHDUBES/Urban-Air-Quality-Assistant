@@ -32,7 +32,10 @@ export default function ChatBox({
   ]
 
   return (
-    <div className="bg-white dark:bg-navy-850 rounded-2xl p-6 md:p-8 border border-slate-200/80 dark:border-white/10 shadow-sm flex flex-col h-[600px] transition-colors">
+    <div
+      className="bg-white dark:bg-navy-850 rounded-2xl p-6 md:p-8 border border-slate-200/80 dark:border-white/10 shadow-sm flex flex-col h-[600px] transition-colors"
+      style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
+    >
       {/* Header */}
       <div className="pb-4 border-b border-slate-200/80 dark:border-white/10 flex items-center justify-between gap-3">
         <div className="flex items-center gap-3">

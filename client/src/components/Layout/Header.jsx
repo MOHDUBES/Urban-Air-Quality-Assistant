@@ -29,7 +29,10 @@ export default function Header({ theme, lang, onToggleLang }) {
   };
 
   return (
-    <header className="sticky top-0 z-40 backdrop-blur-md bg-white/95 dark:bg-navy-900/95 border-b border-slate-200/80 dark:border-white/10 shadow-xs transition-colors duration-200">
+    <header
+      className="sticky top-0 z-40 backdrop-blur-md border-b shadow-xs transition-colors duration-200"
+      style={{ backgroundColor: 'var(--bg-base)', borderColor: 'var(--border-subtle)' }}
+    >
       <div className="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
         {/* Brand: Logo + Title + Tagline */}
         <div className="flex items-center gap-3 min-w-0">
@@ -51,15 +54,16 @@ export default function Header({ theme, lang, onToggleLang }) {
             />
           </a>
           <div className="min-w-0">
-            <h1 className="text-lg sm:text-xl font-black text-slate-900 dark:text-white leading-tight tracking-tight truncate">
+            <h1 className="text-lg sm:text-xl font-black leading-tight tracking-tight truncate">
               <a
                 href="/"
                 className="hover:text-teal-600 dark:hover:text-teal-400 focus:outline-none focus-visible:underline transition-colors"
+                style={{ color: 'var(--text-primary)' }}
               >
                 {t.nav.title}
               </a>
             </h1>
-            <p className="text-xs font-medium text-slate-500 dark:text-slate-400 hidden sm:block tracking-normal">
+            <p className="text-xs font-medium hidden sm:block tracking-normal" style={{ color: 'var(--text-muted)' }}>
               {t.nav.tagline}
             </p>
           </div>
@@ -72,12 +76,16 @@ export default function Header({ theme, lang, onToggleLang }) {
           aria-label="Accessibility and preference controls"
         >
           {/* Language Toggle */}
-          <div className="bg-slate-100 dark:bg-navy-800 p-0.5 rounded-xl border border-slate-200/80 dark:border-white/10 flex items-center">
+          <div
+            className="p-0.5 rounded-xl border flex items-center"
+            style={{ backgroundColor: 'var(--bg-elevated)', borderColor: 'var(--border-subtle)' }}
+          >
             <button
               type="button"
               onClick={onToggleLang}
               aria-label={`${t.common.language}: ${lang === 'en' ? 'English' : 'हिंदी'}. Switch language.`}
-              className="px-2.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal transition-colors"
+              className="px-2.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 hover:text-brand-teal focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal transition-colors"
+              style={{ color: 'var(--text-primary)' }}
             >
               <Languages className="w-3.5 h-3.5 text-brand-teal" aria-hidden="true" strokeWidth={1.75} />
               <span>{lang === 'en' ? 'EN' : 'हिन्दी'}</span>
@@ -85,7 +93,10 @@ export default function Header({ theme, lang, onToggleLang }) {
           </div>
 
           {/* Theme Selector (Only Sun and Moon - Chand aur Suraj) */}
-          <div className="bg-slate-100 dark:bg-navy-800 p-0.5 rounded-xl border border-slate-200/80 dark:border-white/10 flex items-center gap-0.5">
+          <div
+            className="p-0.5 rounded-xl border flex items-center gap-0.5"
+            style={{ backgroundColor: 'var(--bg-elevated)', borderColor: 'var(--border-subtle)' }}
+          >
             <button
               type="button"
               onClick={handleLightClick}
@@ -93,9 +104,10 @@ export default function Header({ theme, lang, onToggleLang }) {
               aria-pressed={!isDark}
               className={`p-1.5 rounded-lg text-xs transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal ${
                 !isDark
-                  ? 'bg-white text-amber-500 shadow-xs font-bold'
+                  ? 'text-amber-500 shadow-xs font-bold'
                   : 'text-slate-400 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-200'
               }`}
+              style={!isDark ? { backgroundColor: 'var(--bg-surface)' } : {}}
             >
               <Sun className="w-4 h-4" aria-hidden="true" strokeWidth={1.75} />
             </button>
@@ -106,9 +118,10 @@ export default function Header({ theme, lang, onToggleLang }) {
               aria-pressed={isDark}
               className={`p-1.5 rounded-lg text-xs transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal ${
                 isDark
-                  ? 'bg-navy-700 text-teal-400 shadow-xs font-bold'
+                  ? 'text-teal-400 shadow-xs font-bold'
                   : 'text-slate-400 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-200'
               }`}
+              style={isDark ? { backgroundColor: 'var(--bg-surface)' } : {}}
             >
               <Moon className="w-4 h-4" aria-hidden="true" strokeWidth={1.75} />
             </button>

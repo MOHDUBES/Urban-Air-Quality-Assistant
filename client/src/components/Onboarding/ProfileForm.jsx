@@ -85,12 +85,21 @@ export default function ProfileForm({ onSubmit, initialValues, loading }) {
   }
 
   return (
-    <div className="bg-white dark:bg-navy-850 rounded-card shadow-card border border-slate-200/80 dark:border-white/10 p-6 md:p-8 transition-colors duration-200">
+    <div
+      className="bg-white dark:bg-navy-850 rounded-card shadow-card border border-slate-200/80 dark:border-white/10 p-6 md:p-8 transition-colors duration-200"
+      style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
+    >
       <div className="mb-6">
-        <h2 className="text-xl md:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+        <h2
+          className="text-xl md:text-2xl font-black text-slate-900 dark:text-white tracking-tight"
+          style={{ color: 'var(--text-primary)' }}
+        >
           {lang === 'hi' ? 'अपनी प्रोफ़ाइल और स्थान सेट करें' : 'Personalize Your Smog Defense Plan'}
         </h2>
-        <p className="text-sm font-medium text-slate-600 dark:text-slate-400 mt-1">
+        <p
+          className="text-sm font-medium text-slate-600 dark:text-slate-400 mt-1"
+          style={{ color: 'var(--text-secondary)' }}
+        >
           {lang === 'hi'
             ? 'अपनी जीवनशैली और संवेदनशील सदस्यों के आधार पर व्यक्तिगत मार्गदर्शन प्राप्त करें।'
             : 'Tailored recommendations grounded in WHO air quality thresholds and local CPCB pollution trends.'}
@@ -103,7 +112,11 @@ export default function ProfileForm({ onSubmit, initialValues, loading }) {
       <form onSubmit={handleSubmit} noValidate className="space-y-5">
         {/* Top Field: City Input */}
         <div>
-          <label htmlFor="city-input" className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1.5">
+          <label
+            htmlFor="city-input"
+            className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1.5"
+            style={{ color: 'var(--text-primary)' }}
+          >
             City Name <span className="text-red-500">*</span>
           </label>
           <div className="relative">
@@ -126,6 +139,7 @@ export default function ProfileForm({ onSubmit, initialValues, loading }) {
                   ? 'border-red-500 bg-red-50/50 dark:bg-red-950/20 text-red-900 dark:text-red-100 focus:ring-red-500'
                   : 'border-slate-300 dark:border-white/10 bg-slate-50/50 dark:bg-navy-900 text-slate-900 dark:text-white focus:border-brand-teal focus:bg-white dark:focus:bg-navy-900'
               } focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal`}
+              style={!errors.city ? { backgroundColor: 'var(--bg-elevated)', borderColor: 'var(--border-subtle)', color: 'var(--text-primary)' } : {}}
             />
             {validatingCity && (
               <span className="absolute right-3.5 inset-y-0 flex items-center gap-1.5 text-xs text-teal-600 dark:text-teal-400 font-semibold animate-pulse">
@@ -150,7 +164,11 @@ export default function ProfileForm({ onSubmit, initialValues, loading }) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4.5">
           {/* Household Type */}
           <div>
-            <label htmlFor="household-select" className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1.5">
+            <label
+              htmlFor="household-select"
+              className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1.5"
+              style={{ color: 'var(--text-primary)' }}
+            >
               Household Type
             </label>
             <select
@@ -159,6 +177,7 @@ export default function ProfileForm({ onSubmit, initialValues, loading }) {
               value={formData.householdType}
               onChange={handleChange}
               className="w-full h-12 px-3.5 rounded-btn border border-slate-300 dark:border-white/10 bg-slate-50/50 dark:bg-navy-900 text-slate-900 dark:text-white text-sm font-medium focus:outline-none focus:border-brand-teal focus:bg-white dark:focus:bg-navy-900 focus-visible:ring-2 focus-visible:ring-brand-teal transition-all"
+              style={{ backgroundColor: 'var(--bg-elevated)', borderColor: 'var(--border-subtle)', color: 'var(--text-primary)' }}
             >
               <option value="asthma">🫁 Asthma / Respiratory Patient</option>
               <option value="family_kids">👨‍👩‍👧‍👦 Family with Young Kids</option>
@@ -166,14 +185,18 @@ export default function ProfileForm({ onSubmit, initialValues, loading }) {
               <option value="working_professional">💼 Working Professional</option>
               <option value="student">🎓 Student / Young Adult</option>
             </select>
-            <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400">
+            <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400" style={{ color: 'var(--text-muted)' }}>
               Calibrates clinical vulnerability weightings.
             </p>
           </div>
 
           {/* Commute Mode */}
           <div>
-            <label htmlFor="commute-select" className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1.5">
+            <label
+              htmlFor="commute-select"
+              className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1.5"
+              style={{ color: 'var(--text-primary)' }}
+            >
               Primary Commute
             </label>
             <select
@@ -182,6 +205,7 @@ export default function ProfileForm({ onSubmit, initialValues, loading }) {
               value={formData.commuteMode}
               onChange={handleChange}
               className="w-full h-12 px-3.5 rounded-btn border border-slate-300 dark:border-white/10 bg-slate-50/50 dark:bg-navy-900 text-slate-900 dark:text-white text-sm font-medium focus:outline-none focus:border-brand-teal focus:bg-white dark:focus:bg-navy-900 focus-visible:ring-2 focus-visible:ring-brand-teal transition-all"
+              style={{ backgroundColor: 'var(--bg-elevated)', borderColor: 'var(--border-subtle)', color: 'var(--text-primary)' }}
             >
               <option value="metro_bus">🚇 Metro / Bus (Public Transit)</option>
               <option value="car">🚗 Personal Car</option>
@@ -189,14 +213,18 @@ export default function ProfileForm({ onSubmit, initialValues, loading }) {
               <option value="walk">🚶 Walk / Bicycle</option>
               <option value="wfh">🏠 Work From Home (No commute)</option>
             </select>
-            <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400">
+            <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400" style={{ color: 'var(--text-muted)' }}>
               Estimates roadside inhalation exposure.
             </p>
           </div>
 
           {/* Dwelling Type */}
           <div>
-            <label htmlFor="home-select" className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1.5">
+            <label
+              htmlFor="home-select"
+              className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1.5"
+              style={{ color: 'var(--text-primary)' }}
+            >
               Dwelling Type
             </label>
             <select
@@ -205,18 +233,23 @@ export default function ProfileForm({ onSubmit, initialValues, loading }) {
               value={formData.homeType}
               onChange={handleChange}
               className="w-full h-12 px-3.5 rounded-btn border border-slate-300 dark:border-white/10 bg-slate-50/50 dark:bg-navy-900 text-slate-900 dark:text-white text-sm font-medium focus:outline-none focus:border-brand-teal focus:bg-white dark:focus:bg-navy-900 focus-visible:ring-2 focus-visible:ring-brand-teal transition-all"
+              style={{ backgroundColor: 'var(--bg-elevated)', borderColor: 'var(--border-subtle)', color: 'var(--text-primary)' }}
             >
               <option value="apartment">🏢 Apartment / Multi-story Flat</option>
               <option value="independent">🏡 Independent House / Ground Floor</option>
             </select>
-            <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400">
+            <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400" style={{ color: 'var(--text-muted)' }}>
               Guides natural air infiltration and ventilation hacks.
             </p>
           </div>
 
           {/* Intervention Budget */}
           <div>
-            <label htmlFor="budget-select" className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1.5">
+            <label
+              htmlFor="budget-select"
+              className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1.5"
+              style={{ color: 'var(--text-primary)' }}
+            >
               Intervention Budget
             </label>
             <select
@@ -225,19 +258,23 @@ export default function ProfileForm({ onSubmit, initialValues, loading }) {
               value={formData.budget}
               onChange={handleChange}
               className="w-full h-12 px-3.5 rounded-btn border border-slate-300 dark:border-white/10 bg-slate-50/50 dark:bg-navy-900 text-slate-900 dark:text-white text-sm font-medium focus:outline-none focus:border-brand-teal focus:bg-white dark:focus:bg-navy-900 focus-visible:ring-2 focus-visible:ring-brand-teal transition-all"
+              style={{ backgroundColor: 'var(--bg-elevated)', borderColor: 'var(--border-subtle)', color: 'var(--text-primary)' }}
             >
               <option value="low">🌱 Low / DIY Hacks (&lt; ₹500)</option>
               <option value="medium">⚖️ Medium / Standard Purifier (₹500 - ₹2,000)</option>
               <option value="high">🛡️ High / Premium Smart HEPA (₹2,000+)</option>
             </select>
-            <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400">
+            <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400" style={{ color: 'var(--text-muted)' }}>
               Ranks DIY Corsi-Rosenthal boxes vs. HEPA hardware.
             </p>
           </div>
         </div>
 
         {/* Air Purifier Toggle Card */}
-        <div className="flex items-center gap-3 p-4 rounded-xl bg-slate-50/80 dark:bg-navy-800/60 border border-slate-200/80 dark:border-white/10 transition-colors">
+        <div
+          className="flex items-center gap-3 p-4 rounded-xl bg-slate-50/80 dark:bg-navy-800/60 border border-slate-200/80 dark:border-white/10 transition-colors"
+          style={{ backgroundColor: 'var(--bg-elevated)', borderColor: 'var(--border-subtle)' }}
+        >
           <input
             id="purifier-checkbox"
             name="hasAirPurifier"
@@ -246,7 +283,11 @@ export default function ProfileForm({ onSubmit, initialValues, loading }) {
             onChange={handleChange}
             className="w-4 h-4 rounded text-teal-600 focus:ring-brand-teal border-slate-300 dark:border-slate-600 dark:bg-navy-900"
           />
-          <label htmlFor="purifier-checkbox" className="text-sm font-semibold text-slate-800 dark:text-slate-200 cursor-pointer select-none">
+          <label
+            htmlFor="purifier-checkbox"
+            className="text-sm font-semibold text-slate-800 dark:text-slate-200 cursor-pointer select-none"
+            style={{ color: 'var(--text-primary)' }}
+          >
             I already have an active Air Purifier at home
           </label>
         </div>

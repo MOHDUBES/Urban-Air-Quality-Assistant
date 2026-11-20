@@ -118,7 +118,10 @@ export default function App() {
 
   return (
     <LangContext.Provider value={{ t, lang, toggleLang }}>
-      <div className="min-h-screen bg-slate-50 dark:bg-navy-900 text-slate-900 dark:text-white flex flex-col font-sans transition-colors duration-200">
+      <div
+        className="min-h-screen bg-slate-50 dark:bg-navy-900 text-slate-900 dark:text-white flex flex-col font-sans transition-colors duration-200"
+        style={{ backgroundColor: 'var(--bg-base)', color: 'var(--text-primary)' }}
+      >
         <SkipLink />
         <Header theme={theme} lang={lang} onToggleLang={toggleLang} />
 
@@ -134,7 +137,10 @@ export default function App() {
           ) : (
             <div className="space-y-6">
               {/* Profile summary bar & edit trigger */}
-              <div className="flex flex-wrap items-center justify-between gap-3 p-4 rounded-2xl bg-white dark:bg-navy-850 border border-slate-200/80 dark:border-white/10 shadow-xs transition-colors">
+              <div
+                className="flex flex-wrap items-center justify-between gap-3 p-4 rounded-2xl bg-white dark:bg-navy-850 border border-slate-200/80 dark:border-white/10 shadow-xs transition-colors"
+                style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
+              >
                 <div className="flex flex-wrap items-center gap-2 text-xs">
                   <span className="font-bold text-slate-900 dark:text-white">Active Profile:</span>
                   <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-teal-500/10 text-teal-800 dark:text-teal-300 font-semibold border border-teal-500/20">

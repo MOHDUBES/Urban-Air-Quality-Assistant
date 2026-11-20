@@ -61,15 +61,24 @@ export const SAMPLE_PROFILES = [
 
 export default function SampleProfiles({ onSelect, selectedId }) {
   return (
-    <div className="mb-6 p-4 rounded-card bg-slate-50/80 dark:bg-navy-800/60 border border-slate-200/80 dark:border-white/10">
+    <div
+      className="mb-6 p-4 rounded-card bg-slate-50/80 dark:bg-navy-800/60 border border-slate-200/80 dark:border-white/10"
+      style={{ backgroundColor: 'var(--bg-elevated)', borderColor: 'var(--border-subtle)' }}
+    >
       <div className="flex items-center gap-2 mb-3">
         <div className="w-5 h-5 rounded-full bg-teal-500/10 dark:bg-teal-400/20 text-teal-600 dark:text-teal-400 flex items-center justify-center">
           <Zap className="w-3.5 h-3.5" aria-hidden="true" strokeWidth={2} />
         </div>
-        <span className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+        <span
+          className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"
+          style={{ color: 'var(--text-primary)' }}
+        >
           Instant Demo Presets
         </span>
-        <span className="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:inline">
+        <span
+          className="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:inline"
+          style={{ color: 'var(--text-muted)' }}
+        >
           (Click to auto-populate)
         </span>
       </div>
@@ -88,12 +97,24 @@ export default function SampleProfiles({ onSelect, selectedId }) {
                   ? 'bg-teal-50 dark:bg-teal-950/40 border-teal-500 text-teal-950 dark:text-teal-100 shadow-xs'
                   : 'bg-white dark:bg-navy-850 hover:bg-slate-50 dark:hover:bg-navy-750 border-slate-200 dark:border-white/10 text-slate-800 dark:text-slate-200'
               }`}
+              style={
+                isSelected
+                  ? {}
+                  : {
+                      backgroundColor: 'var(--bg-surface)',
+                      borderColor: 'var(--border-subtle)',
+                      color: 'var(--text-primary)',
+                    }
+              }
             >
               <div className="flex items-center gap-2 mb-1">
                 <Icon className={`w-4 h-4 flex-shrink-0 ${isSelected ? 'text-teal-600 dark:text-teal-400' : 'text-slate-400 group-hover:text-teal-500'}`} aria-hidden="true" strokeWidth={1.75} />
                 <span className="font-bold break-words leading-tight">{sample.title}</span>
               </div>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-tight line-clamp-1">
+              <p
+                className="text-[11px] text-slate-500 dark:text-slate-400 leading-tight line-clamp-1"
+                style={{ color: 'var(--text-muted)' }}
+              >
                 {sample.desc}
               </p>
             </button>

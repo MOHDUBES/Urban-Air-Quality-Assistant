@@ -77,6 +77,7 @@ export default function AqiCard({ aqiData, onManualOverride, onResetManual }) {
       role="region"
       aria-live="polite"
       aria-label={getAqiAriaLabel(aqi, cat)}
+      style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
     >
       {/* Top Header Bar */}
       <div className="flex flex-wrap items-center justify-between gap-3 mb-5">

@@ -37,9 +37,15 @@ function applyClasses(isDark, fontSize) {
   if (isDark) {
     root.classList.add('dark');
     root.setAttribute('data-theme', 'dark');
+    if (document.body) {
+      document.body.classList.add('dark');
+    }
   } else {
     root.classList.remove('dark');
     root.setAttribute('data-theme', 'light');
+    if (document.body) {
+      document.body.classList.remove('dark');
+    }
   }
   root.classList.remove('high-contrast');
   FONT_SIZES.forEach((s) => root.classList.remove(`font-size-${s}`));

@@ -5,7 +5,8 @@
 
 @layer base {
   /* Light theme (default) */
-  :root {
+  :root,
+  [data-theme="light"] {
     --bg-base: #F6F9FC;
     --bg-surface: #FFFFFF;
     --bg-elevated: #F8FAFC;
@@ -23,7 +24,8 @@
   }
 
   /* Dark theme */
-  .dark {
+  .dark,
+  [data-theme="dark"] {
     --bg-base: #0A1220;
     --bg-surface: #101A2E;
     --bg-elevated: #15223B;
@@ -54,6 +56,11 @@
     transition: background-color 0.2s ease, color 0.2s ease;
   }
 
+  select option {
+    background-color: var(--bg-surface);
+    color: var(--text-primary);
+  }
+
   /* Accessible Font Size Adjustments */
   html.font-size-sm {
     font-size: 87.5%; /* 14px base */
@@ -72,10 +79,6 @@
   :focus-visible {
     outline: 2px solid #14B8A6 !important;
     outline-offset: 2px !important;
-  }
-
-  html.high-contrast :focus-visible {
-    outline-color: #FFD400 !important;
   }
 
   /* Respect reduced motion preference */
