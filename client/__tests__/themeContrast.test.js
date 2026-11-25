@@ -1,6 +1,6 @@
 // client/__tests__/themeContrast.test.js
 // Tests: theme toggle sets .dark class, localStorage persistence, OS fallback, WCAG AA contrast
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { describe, it, expect, beforeEach } from 'vitest'
 
 // --- WCAG Contrast Helpers ---
 

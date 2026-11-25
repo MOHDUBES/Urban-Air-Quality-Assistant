@@ -32,12 +32,13 @@ export function errorHandler(err, req, res, _next) {
   const isProd = process.env.NODE_ENV === 'production'
 
   // --- Zod Validation Errors (400) ---
-  if (err instanceof ZodError) {
+  if (err instanceof ZodError || err.name === 'ZodError') {
+    const issues = err.issues || err.errors || []
     return res.status(400).json({
       error: 'Validation failed',
       code: 'VALIDATION_ERROR',
-      details: err.errors.map((e) => ({
-        field: e.path.join('.'),
+      details: issues.map((e) => ({
+        field: Array.isArray(e.path) ? e.path.join('.') : String(e.path || ''),
         message: e.message,
       })),
     })
