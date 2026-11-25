@@ -28,6 +28,7 @@ import ChatBox from './components/Chat/ChatBox.jsx'
 import MaskGuide from './components/Guide/MaskGuide.jsx'
 import LoadingSkeleton from './components/UI/LoadingSkeleton.jsx'
 import ErrorBanner from './components/UI/ErrorBanner.jsx'
+import { API_URL } from './utils/api.js'
 
 export const LangContext = createContext({
   t: en,
@@ -93,7 +94,7 @@ export default function App() {
   const handleResetManual = async () => {
     if (!profile) return
     try {
-      const res = await fetch(`/api/aqi?lat=${profile.lat}&lon=${profile.lon}`)
+      const res = await fetch(`${API_URL}/api/aqi?lat=${profile.lat}&lon=${profile.lon}`)
       const json = await res.json()
       if (json.data) {
         setAqiData(json.data)

@@ -16,6 +16,7 @@ import {
 } from 'lucide-react'
 import { LangContext } from '../../App'
 import SampleProfiles from './SampleProfiles.jsx'
+import { API_URL } from '../../utils/api.js'
 
 export default function ProfileForm({ onSubmit, initialValues, loading }) {
   const { lang } = useContext(LangContext)
@@ -71,7 +72,7 @@ export default function ProfileForm({ onSubmit, initialValues, loading }) {
     // Validate city through geocoding API
     setValidatingCity(true)
     try {
-      const res = await fetch(`/api/aqi?city=${encodeURIComponent(formData.city.trim())}`)
+      const res = await fetch(`${API_URL}/api/aqi?city=${encodeURIComponent(formData.city.trim())}`)
       const json = await res.json()
       if (!res.ok || !json.data) {
         newErrors.city = json.error || `City "${formData.city}" not found. Please try another name.`

@@ -2,6 +2,7 @@
 // Hook for fetching action plans, what-if analyses, and chat from the backend.
 
 import { useState, useCallback } from 'react'
+import { API_URL } from '../utils/api.js'
 
 export function useGeminiPlan() {
   const [plan, setPlan] = useState(null)
@@ -35,7 +36,7 @@ export function useGeminiPlan() {
         } : undefined,
       }
 
-      const res = await fetch('/api/plan', {
+      const res = await fetch(`${API_URL}/api/plan`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -66,7 +67,7 @@ export function useGeminiPlan() {
         language: profile.language || 'en',
       }
 
-      const res = await fetch('/api/whatif', {
+      const res = await fetch(`${API_URL}/api/whatif`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -102,7 +103,7 @@ export function useGeminiPlan() {
         language: profile?.language || 'en',
       }
 
-      const res = await fetch('/api/chat', {
+      const res = await fetch(`${API_URL}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),

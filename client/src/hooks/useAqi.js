@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { API_URL } from '../utils/api.js';
 
 const DEBOUNCE_MS = 300;
 const REFRESH_INTERVAL_MS = 10 * 60 * 1000; // 10 minutes
 
 function buildUrl(params) {
-  const base = '/api/aqi';
+  const base = `${API_URL}/api/aqi`;
   const query = new URLSearchParams(params).toString();
   return `${base}?${query}`;
 }

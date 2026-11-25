@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://urban-air-quality-assistant-server-eosin.vercel.app/api/:path*"
+    }
+  ]
+}
