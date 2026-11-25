@@ -1,6 +1,11 @@
 // client/src/components/UI/Badge.jsx
 import React from 'react'
+import PropTypes from 'prop-types'
 
+/**
+ * Renders an accessible visual badge for telemetry and model sources.
+ * @param {{ variant?: 'genai' | 'fallback' | 'live' | 'default', children?: React.ReactNode }} props
+ */
 export default function Badge({ variant = 'genai', children }) {
   if (variant === 'genai') {
     return (
@@ -35,3 +40,9 @@ export default function Badge({ variant = 'genai', children }) {
     </span>
   )
 }
+
+Badge.propTypes = {
+  variant: PropTypes.string,
+  children: PropTypes.node,
+}
+

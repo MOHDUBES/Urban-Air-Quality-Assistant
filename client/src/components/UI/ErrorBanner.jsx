@@ -1,7 +1,12 @@
 // client/src/components/UI/ErrorBanner.jsx
 import React from 'react'
+import PropTypes from 'prop-types'
 import { AlertTriangle, RotateCcw } from 'lucide-react'
 
+/**
+ * Accessible alert banner for displaying error messages with optional retry.
+ * @param {{ title?: string, message: string, onRetry?: () => void }} props
+ */
 export default function ErrorBanner({ title = 'Something went wrong', message, onRetry }) {
   if (!message) return null
 
@@ -38,3 +43,10 @@ export default function ErrorBanner({ title = 'Something went wrong', message, o
     </div>
   )
 }
+
+ErrorBanner.propTypes = {
+  title: PropTypes.string,
+  message: PropTypes.string,
+  onRetry: PropTypes.func,
+}
+

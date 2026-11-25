@@ -1,6 +1,11 @@
 // client/src/components/UI/LoadingSkeleton.jsx
 import React from 'react'
+import PropTypes from 'prop-types'
 
+/**
+ * Accessible shimmer skeleton placeholder for progressive content loading.
+ * @param {{ variant?: 'card' | 'aqi' | 'chart' | 'plan', count?: number }} props
+ */
 export default function LoadingSkeleton({ variant = 'card', count = 1 }) {
   const items = Array.from({ length: count }, (_, i) => i)
 
@@ -121,3 +126,9 @@ export default function LoadingSkeleton({ variant = 'card', count = 1 }) {
     </div>
   )
 }
+
+LoadingSkeleton.propTypes = {
+  variant: PropTypes.oneOf(['card', 'aqi', 'chart', 'plan']),
+  count: PropTypes.number,
+}
+

@@ -11,8 +11,9 @@ The test harness is split across two specialized frameworks:
 2. **Vitest + React Testing Library (Client)**: DOM component testing, accessibility role verification, live AQI formatting, and user onboarding flow validation.
 
 ```
-Total Test Suites / Files: 17 (6 Server Suites, 11 Client Suites)
-Total Tests Passing: 141 (83 Server Tests, 58 Client Tests)
+Total Test Suites / Files: 23 (8 Server Suites, 15 Client Suites)
+Total Tests Passing: 164 (94 Server Tests, 70 Client Tests)
+Test Passing Rate: 100%
 Code Coverage Focus: High-risk decision paths, schema gates, fallback engine, security headers, rate-limiting, accessibility attributes, WCAG AA/AAA theme contrast, component states, branding integration
 ```
 
@@ -28,6 +29,8 @@ Code Coverage Focus: High-risk decision paths, schema gates, fallback engine, se
 | **Unit** | `server/__tests__/validation.test.js` | 23 | Zod schemas: length limits, geographic boundary checks (-90..90, -180..180), household type enum allowlists, chat history depth bounds (max 10), what-if toggles. |
 | **Unit** | `server/__tests__/cacheService.test.js` | 8 | Cache TTL expiration, key eviction, memory store clearing, stable object hashing across key ordering variations. |
 | **API** | `server/__tests__/routes.test.js` | 9 | `GET /api/health`, `GET /api/aqi` validation & bounds, `POST /api/aqi/manual`, `POST /api/plan` fallback continuity, `POST /api/whatif` dynamic response, `POST /api/chat` medical disclaimer enforcement. |
+| **Service** | `server/__tests__/aqiService.test.js` | 6 | Open-Meteo geocoding resolution, CPCB sub-index calculation, cache retrieval, and offline mock telemetry. |
+| **Error** | `server/__tests__/errorHandler.test.js` | 5 | Zod schema validation errors, 404 route handling, rate limiter 429 backoff, safe Gemini 502 handling, unhandled error masking. |
 | **Component** | `client/__tests__/ChatBox.test.jsx` | 5 | Header rendering, message history, suggested question chips, input submission, clear conversation reset. |
 | **Component** | `client/__tests__/MaskGuide.test.jsx` | 4 | Tab navigation, Corsi-Rosenthal DIY blueprint, NASA plants scientific reality and PM2.5 limitation disclaimer. |
 | **Component** | `client/__tests__/ActionPlan.test.jsx` | 4 | Risk level badges, emergency alerts, household medical special advice, time-windowed routines, null resilience. |
@@ -37,6 +40,10 @@ Code Coverage Focus: High-risk decision paths, schema gates, fallback engine, se
 | **Component** | `client/__tests__/WhatIfSimulator.test.jsx` | 3 | Interactive intervention toggles, dynamic reduction percentages with (est.) labels, CO2 emission savings calculation. |
 | **Component** | `client/__tests__/IndoorHacks.test.jsx` | 2 | Ranked DIY / commercial air cleaning hacks, budget tier badge display, graceful null handling on empty sets. |
 | **Component** | `client/__tests__/Header.test.jsx` | 3 | Logo mark rendering, home link accessible name, image source verification, high-contrast border styles. |
+| **Component** | `client/__tests__/Hero.test.jsx` | 2 | Headline, responsive subheadings, live telemetry badge verification. |
+| **Component** | `client/__tests__/App.test.jsx` | 2 | Core shell rendering, language switching, layout integration. |
+| **Component** | `client/__tests__/UIComponents.test.jsx` | 5 | Badge variants, ErrorBanner retry button, LoadingSkeleton shimmer, Footer medical disclaimer. |
+| **Component** | `client/__tests__/ErrorBoundary.test.jsx` | 3 | Crash trapping, accessible alert banner rendering, component reload recovery. |
 | **Unit** | `client/__tests__/sanitize.test.js` | 5 | DOMPurify XSS payload and script tag removal, HTML stripping, non-string null/undefined safety, string truncation. |
 | **Unit** | `client/__tests__/themeContrast.test.js` | 15 | WCAG 2.1 AA/AAA color contrast ratios across Light and Dark themes: surface text, primary/secondary/muted text, borders, card backgrounds. |
 
