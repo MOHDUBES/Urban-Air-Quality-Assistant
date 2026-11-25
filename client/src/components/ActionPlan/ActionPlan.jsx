@@ -6,9 +6,8 @@ import RoutineSection from './RoutineSection.jsx'
 import IndoorHacks from './IndoorHacks.jsx'
 import SustainableAlts from './SustainableAlts.jsx'
 import ImpactExplainer from './ImpactExplainer.jsx'
-import AiPanel from './AiPanel.jsx'
 
-export default function ActionPlan({ plan, isFallback, source }) {
+export default function ActionPlan({ plan, isFallback, source: _source }) {
   if (!plan) return null
 
   const riskLevel = plan.riskLevel || 'moderate'
@@ -116,9 +115,6 @@ export default function ActionPlan({ plan, isFallback, source }) {
 
       {/* 4. Impact Explainer with Assumptions */}
       <ImpactExplainer impactData={plan.impactExplainer} />
-
-      {/* 5. Collapsible "How AI worked" Panel */}
-      <AiPanel plan={plan} source={source} isFallback={isFallback} />
     </section>
   )
 }
