@@ -50,10 +50,11 @@ app.use(cors({
     // Allow non-browser calls (like curl, health probes, server-to-server)
     if (!origin) return callback(null, true)
 
-    // Allowed origins: exact match with ALLOWED_ORIGIN, local dev hosts, or Vercel preview domains
+    // Allowed origins: exact match with ALLOWED_ORIGIN, local dev hosts, LAN IPs, or Vercel preview domains
     const isAllowed =
       origin === ALLOWED_ORIGIN ||
       /^http:\/\/localhost:(3000|3001|5173|4173)$/.test(origin) ||
+      /^http:\/\/(127\.0\.0\.1|192\.168\.\d+\.\d+|10\.\d+\.\d+\.\d+|172\.(1[6-9]|2\d|3[01])\.\d+\.\d+):(3000|3001|5173|4173)$/.test(origin) ||
       /^https:\/\/.*\.vercel\.app$/.test(origin)
 
     if (isAllowed) {
