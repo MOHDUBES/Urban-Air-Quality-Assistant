@@ -1,6 +1,8 @@
 // api/index.js
-// Vercel serverless function entrypoint exporting the Express application.
+// Vercel serverless handler forwarding API calls to the primary production API server.
 
-import app from '../server/index.js'
+export default function handler(req, res) {
+  const backendUrl = `https://urban-air-quality-assistant-server-eosin.vercel.app${req.url || ''}`
+  res.redirect(307, backendUrl)
+}
 
-export default app
