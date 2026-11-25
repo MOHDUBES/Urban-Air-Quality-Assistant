@@ -1,32 +1,20 @@
-let DOMPurify = null;
-
-// Lazy-load DOMPurify if available in this environment
-if (typeof window !== 'undefined') {
-  try {
-    // DOMPurify is an optional peer dependency; graceful fallback if missing
-    import('dompurify')
-      .then((mod) => {
-        DOMPurify = mod.default || mod;
-      })
-      .catch(() => {
-        // Not available; use regex fallback
-      });
-  } catch (_) {}
-}
+import DOMPurify from 'dompurify';
 
 /**
- * Strips all HTML tags from a string.
- * Uses DOMPurify when available; falls back to a regex-based approach.
+ * Strips all HTML tags and malicious payloads from a string.
+ * Uses DOMPurify when available; falls back to a robust regex-based approach.
  * @param {string} str
  * @returns {string}
  */
 export function sanitizeText(str) {
   if (typeof str !== 'string') return '';
-  if (DOMPurify) {
-    return DOMPurify.sanitize(str, { ALLOWED_TAGS: [], ALLOWED_ATTR: [] });
+  if (typeof window !== 'undefined' && DOMPurify && typeof DOMPurify.sanitize === 'function') {
+    return DOMPurify.sanitize(str, { ALLOWED_TAGS: [], ALLOWED_ATTR: [] }).trim();
   }
-  // Regex fallback: strip HTML tags and decode common entities
+  // Fallback: strip script and style tags with their contents, then all tags, then decode entities
   return str
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+    .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '')
     .replace(/<[^>]*>/g, '')
     .replace(/&amp;/g, '&')
     .replace(/&lt;/g, '<')
