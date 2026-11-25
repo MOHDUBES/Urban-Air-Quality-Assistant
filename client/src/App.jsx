@@ -133,9 +133,7 @@ export default function App() {
 
           {/* Profile Onboarding Form */}
           {!profile ? (
-            <div className="max-w-2xl mx-auto">
-              <ProfileForm onSubmit={handleProfileSubmit} loading={planLoading} />
-            </div>
+            <ProfileForm onSubmit={handleProfileSubmit} loading={planLoading} />
           ) : (
             <div className="space-y-6">
               {/* Profile summary bar & edit trigger */}
