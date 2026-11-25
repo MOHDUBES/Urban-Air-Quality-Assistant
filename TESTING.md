@@ -11,9 +11,9 @@ The test harness is split across two specialized frameworks:
 2. **Vitest + React Testing Library (Client)**: DOM component testing, accessibility role verification, live AQI formatting, and user onboarding flow validation.
 
 ```
-Total Test Suites / Files: 12 (4 Server Suites, 8 Client Suites)
-Total Tests Passing: 111 (66 Server Tests, 45 Client Tests)
-Code Coverage Focus: High-risk decision paths, schema gates, fallback engine, accessibility attributes, WCAG AA/AAA theme contrast, branding integration
+Total Test Suites / Files: 14 (6 Server Suites, 8 Client Suites)
+Total Tests Passing: 128 (83 Server Tests, 45 Client Tests)
+Code Coverage Focus: High-risk decision paths, schema gates, fallback engine, security headers, rate-limiting, accessibility attributes, WCAG AA/AAA theme contrast, branding integration
 ```
 
 ---
@@ -22,6 +22,8 @@ Code Coverage Focus: High-risk decision paths, schema gates, fallback engine, ac
 
 | Level | Suite / File | Test Count | Key Invariants Tested |
 |---|---|---|---|
+| **Unit** | `server/__tests__/chatFallback.test.js` | 10 | Intelligent question classification (DIY purifiers, cloth masks, windows, outdoor safety), bilingual translations (Hindi/English), null resilience. |
+| **Security** | `server/__tests__/security.test.js` | 7 | Helmet CSP directives, nosniff, frame protection, Referrer-Policy, strict payload size bounds, 404 stack-trace leak prevention. |
 | **Unit** | `server/__tests__/fallbackEngine.test.js` | 26 | CPCB 6 AQI categories, boundary conditions (0, 50, 51, 100, 400, 401, 500, 999), risk scoring weights, air purifier mitigation score, emergency risk thresholds, baseline recommendations. |
 | **Unit** | `server/__tests__/validation.test.js` | 23 | Zod schemas: length limits, geographic boundary checks (-90..90, -180..180), household type enum allowlists, chat history depth bounds (max 10), what-if toggles. |
 | **Unit** | `server/__tests__/cacheService.test.js` | 8 | Cache TTL expiration, key eviction, memory store clearing, stable object hashing across key ordering variations. |

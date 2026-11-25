@@ -1,0 +1,7 @@
+dist/
+server/dist/
+client/dist/
+coverage/
+node_modules/
+.system_generated/
+scripts/

@@ -12,28 +12,28 @@ export function getChatFallbackReply(message, profile, aqi, language = 'en') {
   const isHindi = language === 'hi'
   const household = profile?.householdType ? profile.householdType.replace('_', ' ') : 'general'
 
-  if (lower.includes('diy') || lower.includes('purifier') || lower.includes('filter') || lower.includes('cadr')) {
+  if (lower.includes('diy') || lower.includes('purifier') || lower.includes('filter') || lower.includes('cadr') || lower.includes('pankha')) {
     if (isHindi) {
       return `कम बजट में प्रभावी एयर प्यूरीफायर (Corsi-Rosenthal Box) बनाने के लिए एक 20-इंच बॉक्स फैन और 1 या 4 MERV-13 (या HEPA) एयर फिल्टर लें। फिल्टर के एयर-फ्लो एरो पंखे की ओर रखें और डक्ट टेप से किनारों को सील करें। यह 90% से अधिक PM2.5 कणों को ₹1500-₹2000 में साफ करता है।`
     }
     return `To build a highly effective DIY air purifier (Corsi-Rosenthal Box), attach a MERV-13 or HEPA furnace filter to the intake side of a standard 20-inch box fan using duct tape to form an airtight seal. For rooms under 250 sq ft, this achieves a clean air delivery rate (CADR) equivalent to commercial units costing ₹8,000+ at a fraction of the cost.`
   }
 
-  if (lower.includes('mask') || lower.includes('cloth') || lower.includes('n95') || lower.includes('kn95') || lower.includes('surgical')) {
+  if (lower.includes('mask') || lower.includes('cloth') || lower.includes('kapde') || lower.includes('n95') || lower.includes('kn95') || lower.includes('surgical')) {
     if (isHindi) {
       return `कपड़े के मास्क (Cloth masks) केवल 10-30% PM2.5 को रोकते हैं और अत्यधिक प्रदूषण (AQI ${aqi}) में सुरक्षित नहीं हैं। PM2.5 और स्मॉग से फेफड़ों को बचाने के लिए कम से कम 95% फिल्ट्रेशन वाले N95, KN95 या FFP2 रेस्पिरेटर मास्क का उपयोग करें और सुनिश्चित करें कि नाक और चेहरे पर कोई गैप न हो।`
     }
     return `No, standard cloth and surgical masks do not provide reliable protection against fine PM2.5 particles (blocking only 10–30% of micro-particulates). With current AQI at ${aqi}, you should strictly use a certified N95, KN95, or FFP2 respirator with an airtight nasal seal to filter out 95%+ of microscopic toxic pollutants.`
   }
 
-  if (lower.includes('window') || lower.includes('ventilat') || lower.includes('open') || lower.includes('fresh air')) {
+  if (lower.includes('window') || lower.includes('khidki') || lower.includes('khol') || lower.includes('ventilat') || lower.includes('open') || lower.includes('fresh air')) {
     if (isHindi) {
       return `सुबह (6-10 AM) और शाम को विंटर इनवर्जन की वजह से प्रदूषण जमीन के पास सबसे घना होता है। खिड़कियों को दोपहर 12 बजे से 3 बजे के बीच 15-20 मिनट के लिए ही खोलें जब धूप से वेंटिलेशन बेहतर हो, और उसके बाद तुरंत एयर प्यूरीफायर चलाएं।`
     }
     return `Keep all windows and exterior vents firmly sealed during early morning (6–10 AM) and evening hours when thermal temperature inversion traps toxic smog near the ground. If ventilation is necessary to reduce indoor CO2, open windows briefly for 15–20 minutes only between 12:00 PM and 3:30 PM when solar warming lifts surface pollutants, then immediately resume indoor air filtration.`
   }
 
-  if (lower.includes('outside') || lower.includes('outdoor') || lower.includes('play') || lower.includes('walk') || lower.includes('run') || lower.includes('safe')) {
+  if (lower.includes('outside') || lower.includes('outdoor') || lower.includes('bahar') || lower.includes('khel') || lower.includes('play') || lower.includes('walk') || lower.includes('run') || lower.includes('safe') || lower.includes('surakshit')) {
     if (isHindi) {
       return `वर्तमान AQI (${aqi}) पर बाहर जाना खासकर ${household} और बच्चों/बुजुर्गों के लिए असुरक्षित है। सुबह की सैर या बच्चों के आउटडोर खेल तुरंत रोकें। यदि बाहर निकलना आवश्यक हो, तो हमेशा N95 मास्क पहनें और व्यस्त सड़कों से दूर रहें।`
     }

@@ -43,7 +43,29 @@ const PORT = process.env.PORT || 3001
 const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || 'http://localhost:5173'
 
 // ── Security middleware ─────────────────────────────────────────────────────
-app.use(helmet())
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-inline'"],
+        styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
+        fontSrc: ["'self'", 'https://fonts.gstatic.com', 'data:'],
+        imgSrc: ["'self'", 'data:', 'https:'],
+        connectSrc: ["'self'", 'https://*.vercel.app', 'https://api.open-meteo.com', 'https://geocoding-api.open-meteo.com', 'https://generativelanguage.googleapis.com'],
+        frameAncestors: ["'self'"],
+        objectSrc: ["'none'"],
+      },
+    },
+    crossOriginEmbedderPolicy: false,
+    crossOriginResourcePolicy: { policy: 'cross-origin' },
+  })
+)
+
+app.use((_req, res, next) => {
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=(self)')
+  next()
+})
 
 // Strictly restricted CORS
 app.use(cors({
@@ -138,6 +160,14 @@ app.get('*', (req, res, next) => {
   if (req.path.startsWith('/api') || req.path.startsWith('/health')) return next()
   res.sendFile(path.join(clientDist, 'index.html'), (err) => {
     if (err) next()
+  })
+})
+
+// ── 404 Handler for undefined API routes ────────────────────────────────────
+app.use((req, res) => {
+  res.status(404).json({
+    error: `Cannot ${req.method} ${req.path}`,
+    code: 'NOT_FOUND',
   })
 })
 
