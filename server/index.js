@@ -36,6 +36,7 @@ import aqiRouter from './routes/aqi.js'
 import planRouter from './routes/plan.js'
 import chatRouter from './routes/chat.js'
 import whatifRouter from './routes/whatif.js'
+import { staticAssets } from './services/staticAssets.js'
 
 const app = express()
 const PORT = process.env.PORT || 3001
@@ -92,6 +93,29 @@ app.get(['/api/health', '/health'], (_req, res) => {
 })
 
 // ── Static client files ───────────────────────────────────────────────────
+app.use((req, res, next) => {
+  if (req.method !== 'GET' && req.method !== 'HEAD') return next()
+  if (req.path.startsWith('/api') || req.path.startsWith('/health')) return next()
+
+  const asset = staticAssets?.[req.path]
+  if (asset) {
+    res.setHeader('Content-Type', asset.contentType)
+    if (asset.isBase64) {
+      return res.send(Buffer.from(asset.content, 'base64'))
+    }
+    return res.send(asset.content)
+  }
+
+  // SPA fallback for index.html
+  const indexHtml = staticAssets?.['/index.html']
+  if (indexHtml) {
+    res.setHeader('Content-Type', 'text/html; charset=utf-8')
+    return res.send(indexHtml.content)
+  }
+
+  next()
+})
+
 function getClientDist() {
   const candidates = [
     path.join(__dirname, 'public'),

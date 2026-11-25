@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "node --watch index.js",
-    "build": "npm --prefix ../client run build && node -e \"const fs=require('fs'); fs.mkdirSync('dist/public', {recursive:true}); if(fs.existsSync('../dist')){fs.cpSync('../dist', 'dist/public', {recursive:true});} else if(fs.existsSync('../client/dist')){fs.cpSync('../client/dist', 'dist/public', {recursive:true});}\" && esbuild index.js --bundle --platform=node --format=esm --outfile=dist/index.js --packages=external",
+    "build": "npm --prefix ../client run build && node ../scripts/bundle-static-assets.mjs && esbuild index.js --bundle --platform=node --format=esm --outfile=dist/index.js --packages=external",
     "start": "node dist/index.js",
     "test": "node --experimental-vm-modules ../node_modules/jest/bin/jest.js --runInBand --forceExit",
     "lint": "eslint . --ext .js"
