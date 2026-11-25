@@ -167,15 +167,15 @@ export default function TrendChart({ hourlyData }) {
 
   return (
     <div
-      className="bg-white dark:bg-navy-850 rounded-card p-6 md:p-7 shadow-card border border-slate-200/80 dark:border-white/10 transition-colors duration-200"
+      className="rounded-3xl p-5 sm:p-6 shadow-sm border transition-colors duration-200 space-y-4"
       style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
     >
-      <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-white tracking-tight">
+          <h3 className="text-base sm:text-lg font-black tracking-tight" style={{ color: 'var(--text-primary)' }}>
             24-Hour Smog Trend
           </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+          <p className="text-xs mt-0.5" style={{ color: 'var(--text-muted)' }}>
             Open-Meteo hourly particulate dispersion and AQI curve
           </p>
         </div>
@@ -184,7 +184,12 @@ export default function TrendChart({ hourlyData }) {
         <button
           type="button"
           onClick={() => setShowTable((v) => !v)}
-          className="text-xs font-semibold px-3 py-1.5 rounded-xl border border-slate-200/80 dark:border-white/10 bg-slate-50 hover:bg-slate-100 dark:bg-navy-800 dark:hover:bg-navy-750 text-slate-700 dark:text-slate-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal transition-all flex items-center gap-1.5"
+          className="text-xs font-semibold px-3 py-1.5 rounded-xl border focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal transition-all flex items-center gap-1.5"
+          style={{
+            backgroundColor: 'var(--bg-elevated)',
+            borderColor: 'var(--border-subtle)',
+            color: 'var(--text-secondary)'
+          }}
           aria-expanded={showTable}
         >
           {showTable ? (
@@ -202,9 +207,16 @@ export default function TrendChart({ hourlyData }) {
       </div>
 
       {/* AQI Danger Zones Legend Banner */}
-      <div className="mb-3 px-3 py-1.5 rounded-xl bg-slate-50/80 dark:bg-navy-900/60 border border-slate-200/60 dark:border-white/5 flex flex-wrap items-center gap-3 text-[11px] font-medium text-slate-500 dark:text-slate-400">
-        <span className="font-bold flex items-center gap-1 text-slate-700 dark:text-slate-300">
-          <Info className="w-3.5 h-3.5" aria-hidden="true" />
+      <div
+        className="px-3 py-1.5 rounded-xl border flex flex-wrap items-center gap-3 text-[11px] font-medium"
+        style={{
+          backgroundColor: 'var(--bg-elevated)',
+          borderColor: 'var(--border-subtle)',
+          color: 'var(--text-muted)'
+        }}
+      >
+        <span className="font-bold flex items-center gap-1" style={{ color: 'var(--text-primary)' }}>
+          <Info className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" aria-hidden="true" />
           <span>CPCB Alert Bands:</span>
         </span>
         <span className="inline-flex items-center gap-1">

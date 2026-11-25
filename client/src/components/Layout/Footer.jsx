@@ -1,23 +1,20 @@
 // client/src/components/Layout/Footer.jsx
 import React from 'react'
-import { ExternalLink, Activity, Sparkles, ShieldCheck } from 'lucide-react'
+import { Activity, Sparkles, ShieldCheck, ExternalLink } from 'lucide-react'
 
-function GithubIcon(props) {
+function GithubIcon({ className = 'w-4 h-4' }) {
   return (
     <svg
+      className={className}
       viewBox="0 0 24 24"
-      width="14"
-      height="14"
-      stroke="currentColor"
-      strokeWidth="2"
-      fill="none"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      fill="currentColor"
       aria-hidden="true"
-      {...props}
     >
-      <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
-      <path d="M9 18c-4.51 2-5-2-7-2" />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+      />
     </svg>
   )
 }
@@ -25,30 +22,39 @@ function GithubIcon(props) {
 export default function Footer() {
   return (
     <footer
-      className="mt-16 border-t border-slate-200/80 dark:border-white/10 bg-white/70 dark:bg-navy-900/70 backdrop-blur-md py-10 text-xs text-slate-500 dark:text-slate-400 transition-colors"
-      style={{ backgroundColor: 'var(--bg-base)', borderColor: 'var(--border-subtle)' }}
+      className="mt-auto border-t transition-colors duration-200"
+      style={{
+        backgroundColor: 'var(--bg-surface)',
+        borderColor: 'var(--border-subtle)',
+        color: 'var(--text-secondary)'
+      }}
     >
-      <div className="max-w-6xl mx-auto px-4 space-y-6">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-6 border-b border-slate-200/60 dark:border-white/5">
-          {/* Brand */}
+      <div className="max-w-6xl mx-auto px-4 py-8 space-y-6">
+        {/* Brand identity & Links */}
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <img
-              src="/logo-mark.svg"
-              alt=""
-              aria-hidden="true"
-              width="36"
-              height="36"
-              className="w-9 h-9 rounded-xl shadow-xs border border-teal-500/30 object-contain"
-            />
+            <div className="w-8 h-8 rounded-xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center shrink-0">
+              <img
+                src="/logo-mark.svg"
+                alt=""
+                className="w-5 h-5 object-contain"
+                aria-hidden="true"
+                onError={(e) => {
+                  e.target.style.display = 'none'
+                }}
+              />
+            </div>
             <div>
-              <div className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                Urban Air Quality Assistant
-                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-teal-500/10 text-teal-700 dark:text-teal-300 border border-teal-500/20">
+              <div className="flex items-center gap-2">
+                <span className="font-bold text-sm tracking-tight" style={{ color: 'var(--text-primary)' }}>
+                  Urban Air Quality Assistant
+                </span>
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-teal-500/10 text-teal-700 dark:text-teal-300 border border-teal-500/20">
                   Open Source
                 </span>
               </div>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400">
-                AI-powered resilience for Delhi-NCR winter smog & global urban air pollution
+              <p className="text-[11px]" style={{ color: 'var(--text-muted)' }}>
+                AI-powered resilience for Delhi-NCR winter smog &amp; global urban air pollution
               </p>
             </div>
           </div>
@@ -71,7 +77,7 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
             >
-              <span>Architecture & Documentation</span>
+              <span>Architecture &amp; Documentation</span>
               <ExternalLink className="w-3 h-3 text-slate-400" aria-hidden="true" />
             </a>
             <a
@@ -86,14 +92,11 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Attributions & Disclaimers */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-[11px] leading-relaxed">
-          <div
-            className="p-4 rounded-2xl border space-y-1.5 transition-colors"
-            style={{ backgroundColor: 'var(--bg-elevated)', borderColor: 'var(--border-subtle)' }}
-          >
-            <div className="font-bold flex items-center gap-1.5" style={{ color: 'var(--text-primary)' }}>
-              <Activity className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" aria-hidden="true" />
+        {/* Attributions & Disclaimers - Clean, lightweight text columns (NO bulky box cards) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-[11px] leading-relaxed pt-4 border-t" style={{ borderColor: 'var(--border-subtle)' }}>
+          <div className="space-y-1">
+            <div className="font-semibold flex items-center gap-1.5 text-xs" style={{ color: 'var(--text-primary)' }}>
+              <Activity className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400 shrink-0" aria-hidden="true" />
               <span>Environmental Telemetry</span>
             </div>
             <p style={{ color: 'var(--text-muted)' }}>
@@ -101,12 +104,9 @@ export default function Footer() {
             </p>
           </div>
 
-          <div
-            className="p-4 rounded-2xl border space-y-1.5 transition-colors"
-            style={{ backgroundColor: 'var(--bg-elevated)', borderColor: 'var(--border-subtle)' }}
-          >
-            <div className="font-bold flex items-center gap-1.5" style={{ color: 'var(--text-primary)' }}>
-              <Sparkles className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" aria-hidden="true" />
+          <div className="space-y-1">
+            <div className="font-semibold flex items-center gap-1.5 text-xs" style={{ color: 'var(--text-primary)' }}>
+              <Sparkles className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400 shrink-0" aria-hidden="true" />
               <span>Generative AI Intelligence</span>
             </div>
             <p style={{ color: 'var(--text-muted)' }}>
@@ -114,12 +114,9 @@ export default function Footer() {
             </p>
           </div>
 
-          <div
-            className="p-4 rounded-2xl border space-y-1.5 transition-colors"
-            style={{ backgroundColor: 'var(--bg-elevated)', borderColor: 'var(--border-subtle)' }}
-          >
-            <div className="font-bold flex items-center gap-1.5" style={{ color: 'var(--text-primary)' }}>
-              <ShieldCheck className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" aria-hidden="true" />
+          <div className="space-y-1">
+            <div className="font-semibold flex items-center gap-1.5 text-xs" style={{ color: 'var(--text-primary)' }}>
+              <ShieldCheck className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400 shrink-0" aria-hidden="true" />
               <span>Medical &amp; Exposure Disclaimer</span>
             </div>
             <p style={{ color: 'var(--text-muted)' }}>
@@ -128,7 +125,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="text-center text-[11px] text-slate-400 dark:text-slate-500 pt-2">
+        <div className="text-center text-[11px] pt-1" style={{ color: 'var(--text-muted)' }}>
           © {new Date().getFullYear()} Urban Air Quality Assistant • Built for Clean Air Resilience
         </div>
       </div>
