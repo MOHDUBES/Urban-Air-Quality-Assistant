@@ -7,11 +7,14 @@
 > **A GenAI-Powered Smog Defense & Community Action Platform**  
 > *Tailored low-emission daily routines, evidence-based indoor hacks, and quantified personal emissions impact for families navigating severe winter smog.*
 
+🌐 **Live Application:** [https://urban-air-quality-assistant-vf8a.vercel.app/](https://urban-air-quality-assistant-vf8a.vercel.app/)
+
+[![Live Demo](https://img.shields.io/badge/Vercel-Live%20Demo-000000?style=flat&logo=vercel&logoColor=white)](https://urban-air-quality-assistant-vf8a.vercel.app/)
 [![CI Status](https://github.com/MOHDUBES/urban-air-quality-assistant/actions/workflows/ci.yml/badge.svg)](https://github.com/MOHDUBES/urban-air-quality-assistant/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node Version](https://img.shields.io/badge/Node.js-%3E%3D20-green.svg)](https://nodejs.org/)
 [![React Version](https://img.shields.io/badge/React-18-blue.svg)](https://react.dev/)
-[![Gemini](https://img.shields.io/badge/Google%20Gemini-gemini--2.0--flash-purple.svg)](https://ai.google.dev/)
+[![Gemini](https://img.shields.io/badge/Google%20Gemini-gemini--3.5--flash--lite-purple.svg)](https://ai.google.dev/)
 [![Open-Meteo](https://img.shields.io/badge/Air%20Quality-Open--Meteo%20API-orange.svg)](https://open-meteo.com/)
 
 ---
