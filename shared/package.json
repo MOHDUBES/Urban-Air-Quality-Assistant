@@ -2,5 +2,8 @@
   "name": "@aqa/shared",
   "version": "1.0.0",
   "main": "types.js",
-  "type": "commonjs"
+  "type": "commonjs",
+  "scripts": {
+    "build": "node -e \"process.exit(0)\""
+  }
 }
