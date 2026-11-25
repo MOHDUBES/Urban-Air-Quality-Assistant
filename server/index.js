@@ -92,9 +92,23 @@ app.get(['/api/health', '/health'], (_req, res) => {
 })
 
 // ── Static client files ───────────────────────────────────────────────────
-const clientDist = fs.existsSync(path.join(__dirname, '../dist'))
-  ? path.join(__dirname, '../dist')
-  : path.join(__dirname, '../client/dist')
+function getClientDist() {
+  const candidates = [
+    path.join(__dirname, 'public'),
+    path.join(__dirname, '../dist'),
+    path.join(__dirname, '../../dist'),
+    path.join(__dirname, '../client/dist'),
+    path.resolve(process.cwd(), 'dist'),
+    path.resolve(process.cwd(), 'public'),
+  ]
+  for (const c of candidates) {
+    if (fs.existsSync(path.join(c, 'index.html'))) {
+      return c
+    }
+  }
+  return path.join(__dirname, 'public')
+}
+const clientDist = getClientDist()
 app.use(express.static(clientDist))
 app.get('*', (req, res, next) => {
   if (req.path.startsWith('/api') || req.path.startsWith('/health')) return next()
