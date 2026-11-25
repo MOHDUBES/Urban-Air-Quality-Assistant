@@ -4,6 +4,9 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api" }
+    {
+      "source": "/api/:path*",
+      "destination": "https://urban-air-quality-assistant-server-eosin.vercel.app/api/:path*"
+    }
   ]
 }

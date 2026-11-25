@@ -1,6 +1,7 @@
 {
   "name": "urban-air-quality-assistant",
   "private": true,
+  "type": "module",
   "workspaces": [
     "client",
     "server",
