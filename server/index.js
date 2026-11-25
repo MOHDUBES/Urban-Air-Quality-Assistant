@@ -31,7 +31,7 @@ import express from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
 import { errorHandler } from './middleware/errorHandler.js'
-import { generalLimiter, strictLimiter } from './middleware/rateLimiter.js'
+import { generalLimiter, strictLimiter, chatLimiter } from './middleware/rateLimiter.js'
 import aqiRouter from './routes/aqi.js'
 import planRouter from './routes/plan.js'
 import chatRouter from './routes/chat.js'
@@ -77,7 +77,7 @@ app.use(express.json({ limit: '20kb' }))
 // ── Rate limiter ────────────────────────────────────────────────────────────
 app.use(['/api/', '/'], generalLimiter)
 app.use(['/api/plan', '/plan'], strictLimiter)
-app.use(['/api/chat', '/chat'], strictLimiter)
+app.use(['/api/chat', '/chat'], chatLimiter)
 
 // ── Routes ──────────────────────────────────────────────────────────────────
 app.use(['/api/aqi', '/aqi'], aqiRouter)

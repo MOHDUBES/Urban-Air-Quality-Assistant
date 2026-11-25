@@ -95,8 +95,11 @@ export function useGeminiPlan() {
         message,
         profile,
         aqi: Number(aqiData?.aqi ?? 200),
-        history: updatedHistory.slice(0, -1).map((h) => ({ role: h.role, content: h.content })),
-        language: profile.language || 'en',
+        history: updatedHistory.slice(0, -1).map((h) => ({
+          role: h.role,
+          content: String(h.content || '').slice(0, 4000),
+        })),
+        language: profile?.language || 'en',
       }
 
       const res = await fetch('/api/chat', {
@@ -115,7 +118,15 @@ export function useGeminiPlan() {
       }
       setChatHistory((prev) => [...prev, assistantMessage].slice(-10))
     } catch (err) {
-      setChatError(err.message || 'Failed to send chat message')
+      const errorMessage = err.message || 'Failed to send chat message'
+      setChatError(errorMessage)
+      const assistantError = {
+        role: 'assistant',
+        content: `⚠️ ${errorMessage}. Please try asking again.`,
+        isError: true,
+        timestamp: Date.now(),
+      }
+      setChatHistory((prev) => [...prev, assistantError].slice(-10))
     } finally {
       setChatLoading(false)
     }

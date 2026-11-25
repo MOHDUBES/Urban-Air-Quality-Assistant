@@ -69,7 +69,9 @@ export default function App() {
     generateWhatIf,
     chatHistory,
     chatLoading,
+    chatError,
     sendChat,
+    clearChat,
   } = useGeminiPlan()
 
   // Handle Profile Form Submission
@@ -273,6 +275,8 @@ export default function App() {
                   onSendMessage={(msg) => sendChat(msg, profile, aqiData)}
                   messages={chatHistory}
                   loading={chatLoading}
+                  error={chatError}
+                  onClearChat={clearChat}
                   currentAqi={aqiData?.aqi || 200}
                   profile={profile}
                 />
