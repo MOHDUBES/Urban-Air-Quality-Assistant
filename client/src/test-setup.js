@@ -1,6 +1,9 @@
 // client/src/test-setup.js
 import '@testing-library/jest-dom'
 
+// Mock Element.prototype.scrollIntoView for jsdom
+window.HTMLElement.prototype.scrollIntoView = function() {}
+
 // Mock window.matchMedia for Chart.js / theme tests in jsdom
 Object.defineProperty(window, 'matchMedia', {
   writable: true,

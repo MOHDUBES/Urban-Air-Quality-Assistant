@@ -22,6 +22,12 @@ export const AqiOverrideSchema = z.object({
   pm10: z.number().min(0).max(1000).optional(),
 })
 
+export const AqiQuerySchema = z.object({
+  city: z.string().min(1).max(100).trim().optional(),
+  lat: z.coerce.number().min(-90).max(90).optional(),
+  lon: z.coerce.number().min(-180).max(180).optional(),
+})
+
 export const ChatSchema = z.object({
   message: z.string().min(1).max(500).trim(),
   profile: ProfileSchema,

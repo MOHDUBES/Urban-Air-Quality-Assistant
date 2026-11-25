@@ -87,4 +87,4 @@
  * @property {string} timestamp - ISO 8601 timestamp
  */
 
-module.exports = {};
+export {};

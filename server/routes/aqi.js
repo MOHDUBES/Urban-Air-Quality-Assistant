@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { geocodeCity, getAqiData } from '../services/aqiService.js'
-import { AqiOverrideSchema, validate } from '../middleware/validation.js'
+import { AqiOverrideSchema, AqiQuerySchema, validate } from '../middleware/validation.js'
 
 const router = Router()
 
@@ -10,11 +10,16 @@ const router = Router()
 
 router.get('/', async (req, res, next) => {
   try {
-    const { city, lat, lon } = req.query
+    const parseResult = AqiQuerySchema.safeParse(req.query)
+    if (!parseResult.success) {
+      return res.status(400).json({ error: 'Invalid query parameters', code: 'VALIDATION_ERROR' })
+    }
+
+    const { city, lat, lon } = parseResult.data
 
     if (city) {
       // Geocode first
-      const geo = await geocodeCity(String(city).trim())
+      const geo = await geocodeCity(city)
       const aqiData = await getAqiData(geo.lat, geo.lon)
       return res.json({
         success: true,
@@ -29,16 +34,8 @@ router.get('/', async (req, res, next) => {
     }
 
     if (lat !== undefined && lon !== undefined) {
-      const latNum = parseFloat(lat)
-      const lonNum = parseFloat(lon)
-      if (isNaN(latNum) || isNaN(lonNum)) {
-        return res.status(400).json({ error: 'lat and lon must be valid numbers', code: 'VALIDATION_ERROR' })
-      }
-      if (latNum < -90 || latNum > 90 || lonNum < -180 || lonNum > 180) {
-        return res.status(400).json({ error: 'lat/lon out of range', code: 'VALIDATION_ERROR' })
-      }
-      const aqiData = await getAqiData(latNum, lonNum)
-      return res.json({ success: true, data: { ...aqiData, lat: latNum, lon: lonNum } })
+      const aqiData = await getAqiData(lat, lon)
+      return res.json({ success: true, data: { ...aqiData, lat, lon } })
     }
 
     return res.status(400).json({

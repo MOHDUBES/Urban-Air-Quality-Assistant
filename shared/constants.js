@@ -117,7 +117,15 @@ const BUDGET_LEVELS = [
   { value: 'high', label: 'Premium (₹2000+/mo)', labelHi: 'प्रीमियम (₹2000+/माह)' },
 ];
 
-module.exports = {
+export {
+  AQI_CATEGORIES,
+  COMMUTE_MODES,
+  HOUSEHOLD_TYPES,
+  HOME_TYPES,
+  BUDGET_LEVELS,
+};
+
+export default {
   AQI_CATEGORIES,
   COMMUTE_MODES,
   HOUSEHOLD_TYPES,

@@ -11,9 +11,9 @@ The test harness is split across two specialized frameworks:
 2. **Vitest + React Testing Library (Client)**: DOM component testing, accessibility role verification, live AQI formatting, and user onboarding flow validation.
 
 ```
-Total Test Suites / Files: 14 (6 Server Suites, 8 Client Suites)
-Total Tests Passing: 128 (83 Server Tests, 45 Client Tests)
-Code Coverage Focus: High-risk decision paths, schema gates, fallback engine, security headers, rate-limiting, accessibility attributes, WCAG AA/AAA theme contrast, branding integration
+Total Test Suites / Files: 17 (6 Server Suites, 11 Client Suites)
+Total Tests Passing: 141 (83 Server Tests, 58 Client Tests)
+Code Coverage Focus: High-risk decision paths, schema gates, fallback engine, security headers, rate-limiting, accessibility attributes, WCAG AA/AAA theme contrast, component states, branding integration
 ```
 
 ---
@@ -28,6 +28,9 @@ Code Coverage Focus: High-risk decision paths, schema gates, fallback engine, se
 | **Unit** | `server/__tests__/validation.test.js` | 23 | Zod schemas: length limits, geographic boundary checks (-90..90, -180..180), household type enum allowlists, chat history depth bounds (max 10), what-if toggles. |
 | **Unit** | `server/__tests__/cacheService.test.js` | 8 | Cache TTL expiration, key eviction, memory store clearing, stable object hashing across key ordering variations. |
 | **API** | `server/__tests__/routes.test.js` | 9 | `GET /api/health`, `GET /api/aqi` validation & bounds, `POST /api/aqi/manual`, `POST /api/plan` fallback continuity, `POST /api/whatif` dynamic response, `POST /api/chat` medical disclaimer enforcement. |
+| **Component** | `client/__tests__/ChatBox.test.jsx` | 5 | Header rendering, message history, suggested question chips, input submission, clear conversation reset. |
+| **Component** | `client/__tests__/MaskGuide.test.jsx` | 4 | Tab navigation, Corsi-Rosenthal DIY blueprint, NASA plants scientific reality and PM2.5 limitation disclaimer. |
+| **Component** | `client/__tests__/ActionPlan.test.jsx` | 4 | Risk level badges, emergency alerts, household medical special advice, time-windowed routines, null resilience. |
 | **Unit** | `client/__tests__/aqiUtils.test.js` | 10 | Category detection, bilingual labels (English/Hindi), leading zero formatting (`045`), screen-reader aria strings. |
 | **Component** | `client/__tests__/AqiCard.test.jsx` | 4 | Text-and-color visual indicators (no color-alone indicators), PM2.5/PM10 readings, `aria-live="polite"` region, manual override modal toggle. |
 | **Component** | `client/__tests__/ProfileForm.test.jsx` | 3 | Semantic `<label>` associations, instant demo preset hydration, client-side city validation error rendering. |
