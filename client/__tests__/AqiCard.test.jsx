@@ -14,7 +14,7 @@ describe('AqiCard Component', () => {
 
   test('renders large AQI number and severe category text label', () => {
     render(<AqiCard aqiData={mockData} onManualOverride={vi.fn()} onResetManual={vi.fn()} />)
-    
+
     expect(screen.getByText('450')).toBeInTheDocument()
     // Category label must be visible as text (not just color)
     expect(screen.getByText(/Severe AQI/i)).toBeInTheDocument()

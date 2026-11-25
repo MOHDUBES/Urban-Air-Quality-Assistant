@@ -28,10 +28,9 @@ loadEnv()
 
 const CANDIDATE_MODELS = [
   process.env.GEMINI_MODEL,
-  'gemini-3.1-flash-lite',
+  'gemini-3.5-flash-lite',
   'gemini-3.5-flash',
-  'gemini-2.5-flash',
-  'gemini-2.0-flash',
+  'gemini-2.5-flash-lite',
 ].filter(Boolean)
 
 function getGenAiClient() {
@@ -41,33 +40,39 @@ function getGenAiClient() {
 
 /**
  * Executes a generateContent call against candidate Gemini models.
- * Automatically tries next viable model if one is unavailable (404/503).
+ * Automatically tries next viable model if one fails or times out.
  */
-async function callGemini(params) {
+async function callGemini(params, timeoutMs = 8000) {
   const client = getGenAiClient()
   const models = [...new Set(CANDIDATE_MODELS)]
   let lastError = null
 
   for (const model of models) {
     try {
-      const response = await client.models.generateContent({
+      const callPromise = client.models.generateContent({
         ...params,
         model,
       })
+
+      let timerId
+      const timeoutPromise = new Promise((_, reject) => {
+        timerId = setTimeout(() => {
+          reject(new Error(`Timeout after ${timeoutMs}ms on model ${model}`))
+        }, timeoutMs)
+      })
+
+      const response = await Promise.race([callPromise, timeoutPromise]).finally(() => {
+        clearTimeout(timerId)
+      })
+
       const text = response.text ?? response.candidates?.[0]?.content?.parts?.[0]?.text ?? ''
       if (text) {
         return text
       }
     } catch (err) {
       lastError = err
-      const isUnavailable =
-        err?.message?.includes('404') ||
-        err?.message?.includes('503') ||
-        err?.status === 404 ||
-        err?.status === 503
-
-      if (isUnavailable && model !== models[models.length - 1]) {
-        console.warn(`[gemini] Model ${model} unavailable (${err.message?.slice(0, 80)}), trying next candidate...`)
+      console.warn(`[gemini] Model ${model} failed (${err.message?.slice(0, 80)}), trying next candidate...`)
+      if (model !== models[models.length - 1]) {
         continue
       }
       throw err

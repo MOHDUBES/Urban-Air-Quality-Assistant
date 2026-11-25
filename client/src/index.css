@@ -4,6 +4,7 @@
 @tailwind utilities;
 
 @layer base {
+
   /* Light theme (default) */
   :root,
   [data-theme="light"] {
@@ -63,16 +64,23 @@
 
   /* Accessible Font Size Adjustments */
   html.font-size-sm {
-    font-size: 87.5%; /* 14px base */
+    font-size: 87.5%;
+    /* 14px base */
   }
+
   html.font-size-md {
-    font-size: 100%; /* 16px base default */
+    font-size: 100%;
+    /* 16px base default */
   }
+
   html.font-size-lg {
-    font-size: 112.5%; /* 18px base */
+    font-size: 112.5%;
+    /* 18px base */
   }
+
   html.font-size-xl {
-    font-size: 125%; /* 20px base */
+    font-size: 125%;
+    /* 20px base */
   }
 
   /* Accessible focus indicators: 2px teal offset */
@@ -83,6 +91,7 @@
 
   /* Respect reduced motion preference */
   @media (prefers-reduced-motion: reduce) {
+
     *,
     ::before,
     ::after {
