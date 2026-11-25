@@ -49,7 +49,7 @@ flowchart TD
     Theme["Theme / A11y Engine (Dark/High Contrast/Font)"]
     Form["Profile & Geocoding Form"]
     Dashboard["AQI Dashboard & 24h Trend Chart"]
-    ActionPlanUI["AI Action Plan & 'How AI Worked' Panel"]
+    ActionPlanUI["AI Action Plan & Evidence-Based Guidance"]
     WhatIfUI["Dynamic 'What-If' Exposure Simulator"]
     ChatUI["Contextual Follow-up Chat with Safety Guard"]
     GuideUI["Evidence-Based Mask / DIY Guide"]
@@ -278,6 +278,26 @@ npm run dev
 ```
 Open [http://localhost:5173](http://localhost:5173) in your browser.
 
+### 4. Test on Mobile Phone (Same Wi-Fi or Public Tunnel)
+
+#### Option A: Over Local Wi-Fi (Instant LAN Preview)
+Vite is pre-configured with `host: true` and Express supports LAN CORS:
+1. Ensure your mobile phone and PC are connected to the same Wi-Fi network (or phone hotspot).
+2. Start the dev server (`npm run dev`). Vite displays your Network URL:
+   ```text
+   ➜  Local:   http://localhost:5173/
+   ➜  Network: http://192.168.1.x:5173/
+   ```
+3. Open `http://<YOUR_LAN_IP>:5173` on your smartphone's browser (Chrome / Safari). All API requests seamlessly proxy through to the backend.
+
+#### Option B: Free Public Tunnel (Mobile Data / 4G / 5G / Remote Testing)
+To access the app on your phone without Wi-Fi or to share with remote testers:
+```bash
+# Keep 'npm run dev' running, then in a new terminal:
+npx localtunnel --port 5173
+```
+Open the generated HTTPS URL (e.g., `https://xxxx.loca.lt`) on any mobile device and tap **"Click to Continue"**.
+
 ---
 
 ## 🧪 Testing Instructions
@@ -330,6 +350,6 @@ The application is structured for instant Vercel deployment:
 | **0:00 - 0:30** | **Hero & Problem Context** | *“Delhi-NCR faces severe smog emergencies every winter. Families receive terrifying AQI numbers but have no actionable playbook. The Urban Air Quality Assistant bridges this gap with GenAI and real-time telemetry.”* |
 | **0:30 - 1:00** | **1-Click Demo Preset** | Click **“🏥 Asthmatic Senior (Delhi)”**. Show how the form instantly populates with New Delhi coordinates, asthma vulnerability, and metro transit. Click **“Generate Smog Action Plan”**. |
 | **1:00 - 1:30** | **Live AQI Dashboard & Trend** | Highlight the **AQI Card** showing current AQI (e.g. 450 Severe) with **both text and color labels**. Toggle the accessible 24-hour table and line chart showing peak morning inversion smog. |
-| **1:30 - 2:15** | **AI Plan & "How AI Worked"** | Walk through the **Daily Routine** (highlighting the midday safe window), **Indoor Hacks** (ranked by budget), and **Direct Impact Explainer**. Expand the collapsible **“How AI Worked”** panel to prove that Google Gemini 4 generated structured JSON grounded by our deterministic engine. |
+| **1:30 - 2:15** | **AI Plan & Personalized Guidance** | Walk through the **Daily Routine** (highlighting the midday safe window), **Indoor Hacks** (ranked by budget), and **Direct Impact Explainer**. Explain how Google Gemini generates structured, grounded recommendations calibrated to household risk and live telemetry. |
 | **2:15 - 2:45** | **"What-If" Simulator** | Switch to the **What-If tab**. Toggle *“Switch to Metro”*, *“Use N95”*, and *“Run Purifier”*. Click **“Calculate Impact”** to show live exposure dropping from 450 to 95 effective AQI and saving 1.8 kg CO2. Change a toggle to demonstrate dynamic recalculation. |
 | **2:45 - 3:00** | **Chat, Accessibility & Hindi Toggle** | Switch to the **Chat tab**, send *“Can my 5-year-old play outside?”*, showing the instant advice and medical disclaimer. Toggle to **Hindi (हिन्दी)** and **High Contrast** mode to demonstrate universal accessibility. |

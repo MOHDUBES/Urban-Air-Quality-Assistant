@@ -11,9 +11,9 @@ The test harness is split across two specialized frameworks:
 2. **Vitest + React Testing Library (Client)**: DOM component testing, accessibility role verification, live AQI formatting, and user onboarding flow validation.
 
 ```
-Total Test Suites: 11
-Total Tests Passing: 96
-Code Coverage Focus: High-risk decision paths, schema gates, fallback engine, accessibility attributes, branding integration
+Total Test Suites / Files: 12 (4 Server Suites, 8 Client Suites)
+Total Tests Passing: 111 (66 Server Tests, 45 Client Tests)
+Code Coverage Focus: High-risk decision paths, schema gates, fallback engine, accessibility attributes, WCAG AA/AAA theme contrast, branding integration
 ```
 
 ---
@@ -33,6 +33,7 @@ Code Coverage Focus: High-risk decision paths, schema gates, fallback engine, ac
 | **Component** | `client/__tests__/IndoorHacks.test.jsx` | 2 | Ranked DIY / commercial air cleaning hacks, budget tier badge display, graceful null handling on empty sets. |
 | **Component** | `client/__tests__/Header.test.jsx` | 3 | Logo mark rendering, home link accessible name, image source verification, high-contrast border styles. |
 | **Unit** | `client/__tests__/sanitize.test.js` | 5 | DOMPurify XSS payload and script tag removal, HTML stripping, non-string null/undefined safety, string truncation. |
+| **Unit** | `client/__tests__/themeContrast.test.js` | 15 | WCAG 2.1 AA/AAA color contrast ratios across Light and Dark themes: surface text, primary/secondary/muted text, borders, card backgrounds. |
 
 ---
 
